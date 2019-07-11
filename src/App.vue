@@ -1,31 +1,18 @@
 <template>
   <div id="app">
-    <!-- <invoiceView /> -->
-    <!-- <invoiceCreate  /> -->
-    <!-- <invoiceFrame>    
-    <invoiceView />
-    </invoiceFrame>     -->
-    <invoiceTemplate></invoiceTemplate>
+    <home-page></home-page>
   </div>
 </template>
 
 <script>
-// import invoiceView from './components/invoiceView.vue'
-// import invoiceCreate from './components/invoiceCreate.vue'
-// import invoiceFrame from './components/invoiceFrame.vue'
-import invoiceTemplate from './components/invoices/invoicetemplate'
-
+import homePage from './components/homePage'
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    // invoiceView,
-    // invoiceCreate,
-    // invoiceFrame,
-    invoiceTemplate
+    homePage
   }
-}
+};
 </script>
 
 <style>
-
 </style>
