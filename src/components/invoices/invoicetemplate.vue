@@ -1,35 +1,39 @@
 <template>
   <div class="container py-3 d-flex flex-row">
     <!-- left bar WEG logos component -->
-    <leftbar></leftbar>
+    <left-bar></left-bar>
     <div>
       <!-- Dal Elektrik  header logo and address -->
-      <logohead></logohead>
+      <logo-head></logo-head>
       <hr />
+      <invoice-index></invoice-index>
       <!-- Invoice view -->
-      <invoiceView :invoiceHeadInfo="invoiceHeadInfo" :itemHeaders="itemHeaders" :items="items"></invoiceView>
-      <invoiceCreate :invoiceHeadInfo="{}" :itemHeaders="itemHeaders" :items="[]"></invoiceCreate>
+      <invoice-view :invoiceHeadInfo="invoiceHeadInfo" :itemHeaders="itemHeaders" :items="items"></invoice-view>
+      <invoice-create :invoiceHeadInfo="{}" :itemHeaders="itemHeaders" :items="[]"></invoice-create>
     </div>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import leftbar from "./leftbar.vue";
-import logohead from "./logohead.vue";
-import invoiceView from "./invoiceView.vue";
-import invoiceCreate from "./invoiceCreate.vue";
+import leftBar from "./leftbar";
+import logoHead from "./logohead";
+import invoiceView from "./invoiceView";
+import invoiceCreate from "./invoiceCreate";
+import invoiceIndex from "./invoiceIndex";
 
 export default {
   components: {
-    leftbar,
-    logohead,
+    leftBar,
+    logoHead,
     invoiceView,
-    invoiceCreate
+    invoiceCreate,
+    invoiceIndex
   },
   data: function() {
     return {
       invoiceHeadInfo:{
+        type: "Ticari Fatura",
         motorInfo: "250kw 315SM-04 84hz 1029055831",
         date: "27/05/2019",
         referance: "DAL20190101",

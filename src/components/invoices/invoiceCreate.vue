@@ -2,7 +2,7 @@
 
     <div class="container">
       <div class="row justify-content-center">
-        <h1>Ticari fatura</h1>
+        <h1>{{invoiceHeadInfo.type}}</h1>
       </div>
       <div class="card">
         <div class="card-body">
@@ -167,6 +167,7 @@ export default {
   data: function() {
     return {
       invoiceHeadInfo:{
+        type:"nader",
         motorInfo: "",
         date: "",
         referance: "",
