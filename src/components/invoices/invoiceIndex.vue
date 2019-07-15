@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div >
+    <button @click="invoiceCreate()" class="btn btn-sm btn-dark" >Bir fatura ekle</button>
     <table class="table table-sm">
       <thead>
         <tr>
@@ -10,7 +11,6 @@
           <th scope="col">Ürün açıklaması</th>
           <th scope="col">Statüs</th>
           <th scope="col">Aksion</th>
-
         </tr>
       </thead>
       <tbody>
@@ -22,9 +22,9 @@
           <td>{{invoice.mainProduct.slice(0,25)}}</td>
           <td>{{invoice.status}}</td>
           <td>
-              <button @click="invoiceShow()" class="btn btn-sm btn-primary" title="İncele">İ</button>
-              <button @click="invoiceEdit()" class="btn btn-sm btn-info" title="Düzelt">D</button>
-              <button @click="invoiceDelete()" class="btn btn-sm btn-danger" title="Sil">S</button>
+              <button @click="invoiceShow(index)" class="btn btn-sm btn-primary" title="İncele">İ</button>
+              <button @click="invoiceEdit(index)" class="btn btn-sm btn-info" title="Düzelt">D</button>
+              <button @click="invoiceDelete(index)" class="btn btn-sm btn-danger" title="Sil">S</button>
           </td>
         </tr>
       </tbody>
@@ -35,19 +35,55 @@
 <script>
 export default {
     methods:{
-        invoiceShow: function(){
-            alert("show");
+        invoiceShow: function(index){
+            this.$router.push({name:'invoiceView',params: {invoice: this.invoices[index]}})
         },
-        invoiceEdit: function(){
-            alert("edit");
+        invoiceEdit: function(index){
+            this.$router.push({name:'invoiceEdit',params: {invoice: this.invoices[index]}})
         },
-        invoiceDelete: function(){
-            alert("delete");
+        invoiceDelete: function(index){
+            alert(index)
         },
+        invoiceCreate: function(){
+            this.$router.push({name:'invoiceCreate',params: {invoice: null} })
+        },
+       
     },
   data: function() {
     return {
       invoices: [
+        {
+          type: "Ticari Fatura",
+          mainProduct: "250kw 315SM-04 84hz 1029055831",
+          date: "26/05/2019",
+          referance: "DAL20190101",
+          note: "Fatura muhasebe tarafından kesilecektir",
+          status: "issued",
+          company: {
+            name: "DALGAKIRAN MAKİNE SANAYİ VE TİCARET ANONİM ŞİRKETİ.",
+            address:
+              "Eyüp Sultan Mahallesi, Eyüpsultan Mah. Müminler Cad. No:70 SANCAKTEPE, 34885 			   SANCAKTEPE/Sancaktepe/İstanbu",
+            contact: "Fatih kömürcü"
+          },
+          items: [
+            {
+              id: 1,
+              materialNumber: "1029055831",
+              description: "250kw 1029055831 motor bakımı ve rulman değişimi",
+              delivery: "4 ay",
+              unitPrice: 448,
+              qty: 1
+            },
+            {
+              id: 2,
+              materialNumber: "bilrsiz",
+              description: "Sarım bedeli",
+              delivery: "4 ay",
+              unitPrice: 617,
+              qty: 1
+            }
+          ]
+        },
         {
           type: "Ticari Fatura",
           mainProduct: "250kw 315SM-04 84hz 1029055831",

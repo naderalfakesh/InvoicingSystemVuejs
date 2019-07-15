@@ -47,6 +47,8 @@
             Integrations
             </a>
         </li>
+            <!-- <router-link v-for="(rout,index) in routlist" v-bind:key="index" :to="rout.path" >{{rout.name}}</router-link> -->
+
         </ul>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -82,7 +84,13 @@
 
 <script>
 export default {
-
+    data: function(){
+        return {
+            routlist: [
+             {name:"home",path:"/"}   
+            ]
+        }
+    }
 }
 </script>
 

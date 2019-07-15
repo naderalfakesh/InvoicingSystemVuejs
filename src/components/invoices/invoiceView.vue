@@ -5,42 +5,42 @@
       <!-- invoice content component -->
       
       <div class="row justify-content-center">
-        <h1>{{invoiceHeadInfo.type}}</h1>
+        <h1>{{invoice.type}}</h1>
       </div>
       <div class="card">
         <div class="card-body">
           <div class="row">
             <div class="col-8">
               <h5>Motor bilgileri:</h5>
-              <p>{{invoiceHeadInfo.motorInfo}} </p>
+              <p>{{invoice.mainProduct}} </p>
             </div>
             <div class="col-4">
               <h5>Date:</h5>
-              <p>{{invoiceHeadInfo.date}}</p>
+              <p>{{invoice.date}}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-8">
               <h5>Firma unvanı:</h5>
               <p>
-                {{invoiceHeadInfo.company.name}}
+                {{invoice.company.name}}
               </p>
             </div>
             <div class="col-4">
               <h5>Referans :</h5>
-              <p>{{invoiceHeadInfo.referance}}</p>
+              <p>{{invoice.referance}}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-8">
               <h5>Firma adresi:</h5>
               <p>
-                {{invoiceHeadInfo.company.address}}
+                {{invoice.company.address}}
               </p>
             </div>
             <div class="col-4">
               <h5>Kontak kişi :</h5>
-              <p>{{invoiceHeadInfo.company.contact}}</p>
+              <p>{{invoice.company.contact}}</p>
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in items" :key="item.id">
+            <tr v-for="item in invoice.items" :key="item.id">
               <th scope="row">{{item.id}}</th>
               <td>{{item.materialNumber}}</td>
               <td>{{item.description}}</td>
@@ -79,7 +79,7 @@
         </table>
       </div>
       <div class="row">
-        <p>Note: <u>{{invoiceHeadInfo.note}}</u></p>
+        <p>Note: <u>{{invoice.note}}</u></p>
       </div>
       <hr>
       <div class="row">
@@ -93,15 +93,11 @@
 <script>
 export default {
   name: 'invoiceview',
-  props: {
-   invoiceHeadInfo : Object,
-   items : Array,
-   itemHeaders : Array
-  },
+  props: ['invoice'],
   methods: {
     total: function() {
       let tmp = 0;
-      this.items.forEach(fofo);
+      this.invoice.items.forEach(fofo);
       function fofo(item) {
         tmp += item.qty * item.unitPrice;
       }
@@ -110,6 +106,10 @@ export default {
   },
   data: function() {
     return {
+      itemHeaders: [
+        "#","Ürün kodu","Açıklama","Termin süresi","Birim fiyatı","Miktar","Tutar",
+      ],
+      
     };
   }
 }

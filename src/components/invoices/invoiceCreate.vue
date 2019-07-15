@@ -1,30 +1,34 @@
 <template>
-
-    <div class="container">
-      <div class="row justify-content-center">
-        <h1>{{invoiceHeadInfo.type}}</h1>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <hr />
-            <div class="col-8">
-              <h5>Motor bilgileri:</h5>
-              <p>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="invoiceHeadInfo.motorInfo"
-                  placeholder="30kw 02p W22 B35"
-                />
-              </p>
-            </div>
-            <div class="col-4">
-              <h5>Tarih:</h5>
-              <p>
-                <input type="text" class="form-control" v-model="invoiceHeadInfo.date" placeholder="01/01/2019" />
-              </p>
-            </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <h1>{{invoicecreate.type}}</h1>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <hr />
+          <div class="col-8">
+            <h5>Motor bilgileri:</h5>
+            <p>
+              <input
+                type="text"
+                class="form-control"
+                v-model="invoicecreate.mainProduct"
+                placeholder="30kw 02p W22 B35"
+              />
+            </p>
+          </div>
+          <div class="col-4">
+            <h5>Tarih:</h5>
+            <p>
+              <input
+                type="text"
+                class="form-control"
+                v-model="invoicecreate.date"
+                placeholder="01/01/2019"
+              />
+            </p>
+          </div>
         </div>
 
         <div class="row">
@@ -34,7 +38,7 @@
               <input
                 type="text"
                 class="form-control"
-                v-model="invoiceHeadInfo.company.name"
+                v-model="invoicecreate.company.name"
                 placeholder="Dal Elektrik A.Ş."
               />
             </p>
@@ -42,7 +46,12 @@
           <div class="col-4">
             <h5>Referans :</h5>
             <p>
-              <input type="text" class="form-control" v-model="invoiceHeadInfo.referance" placeholder="Dal20190101" />
+              <input
+                type="text"
+                class="form-control"
+                v-model="invoicecreate.referance"
+                placeholder="Dal20190101"
+              />
             </p>
           </div>
         </div>
@@ -53,7 +62,7 @@
               <input
                 type="text"
                 class="form-control"
-                v-model="invoiceHeadInfo.company.address"
+                v-model="invoicecreate.company.address"
                 placeholder="Adnan Kahveci Bulvarı, Haydar Akın İş Merkezi-1 No:206 Kat:4. 34188 Şirinevler-İstanbul Tel:0212 451 56 06 www.dal.com.tr"
               />
             </p>
@@ -64,132 +73,162 @@
               <input
                 type="text"
                 class="form-control"
-                v-model="invoiceHeadInfo.company.contact"
+                v-model="invoicecreate.company.contact"
                 placeholder="Nadir bey"
               />
             </p>
           </div>
         </div>
       </div>
-      </div>
-      <br>
-
-      <div class="row">
-        <table class="table table-sm" id="invoiceTable">
-          <thead>
-            <tr>
-              <th v-for="(itemHeader,index) in itemHeaders" :key="index" scope="col">{{itemHeader}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item, index ) in items" v-bind:key="index">
-              <th scope="row"><button v-if="index>0" type="button" class="btn btn-sm btn-danger" @click="deleteRow(index)" >X</button></th>
-              <td><input v-model="item.materialNumber" type="text"  class="form-control"  placeholder="0123456789" ></td>
-              <td><input v-model="item.description" type="text"  class="form-control"   placeholder="4kw 0p W22 motor"></td>
-              <td><input v-model="item.delivery" type="text"  class="form-control"   placeholder="4 ay"></td>
-              <td><input v-model="item.unitPrice" type="text"  class="form-control"   placeholder="0"></td>
-              <td><input v-model="item.qty" type="text"  class="form-control"   placeholder="0"></td>
-              <td>{{item.unitPrice*item.qty}}</td>
-            </tr>
-            
-            <tr class="table-success">
-              <td ><button class="btn btn-sm btn-primary" type="button" @click="addrow()">+</button></td>
-              <td colspan="3">
-                <strong class="d-flex justify-content-center">Toplam</strong>
-              </td>
-              <td colspan="3">
-                <strong class="d-flex justify-content-center">
-                  <u>{{total()}} Euro + KDV</u>
-                </strong>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="row ">
-        <h5>Notes</h5>
-        <textarea v-model="invoiceHeadInfo.note" class="form-control" cols="20" rows="3"></textarea>
-      </div>
-      <br>
-      <div class="row justify-content-center">
-        <button class="btn btn-success" @click="createInvoice()">Fatura kaydet</button>
-      </div>
-      <hr />
-      <div class="row">
-        <h6>Yetkili :</h6>
-        <pre class="text-uppercase"> Nader Alfakesh / Servis müh / nader.alfakesh@dal-group.com</pre>
-      </div>
     </div>
-  
+    <br />
+
+    <div class="row">
+      <table class="table table-sm" id="invoiceTable">
+        <thead>
+          <tr>
+            <th v-for="(itemHeader,index) in itemHeaders" :key="index" scope="col">{{itemHeader}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index ) in invoicecreate.items" v-bind:key="index">
+            <th scope="row">
+              <button
+                v-if="index>0"
+                type="button"
+                class="btn btn-sm btn-danger"
+                @click="deleteRow(index)"
+              >X</button>
+            </th>
+            <td>
+              <input
+                v-model="item.materialNumber"
+                type="text"
+                class="form-control"
+                placeholder="0123456789"
+              />
+            </td>
+            <td>
+              <input
+                v-model="item.description"
+                type="text"
+                class="form-control"
+                placeholder="4kw 0p W22 motor"
+              />
+            </td>
+            <td>
+              <input v-model="item.delivery" type="text" class="form-control" placeholder="4 ay" />
+            </td>
+            <td>
+              <input v-model="item.unitPrice" type="text" class="form-control" placeholder="0" />
+            </td>
+            <td>
+              <input v-model="item.qty" type="text" class="form-control" placeholder="0" />
+            </td>
+            <td>{{item.unitPrice*item.qty}}</td>
+          </tr>
+
+          <tr class="table-success">
+            <td>
+              <button class="btn btn-sm btn-primary" type="button" @click="addrow()">+</button>
+            </td>
+            <td colspan="3">
+              <strong class="d-flex justify-content-center">Toplam</strong>
+            </td>
+            <td colspan="3">
+              <strong class="d-flex justify-content-center">
+                <u>{{total()}} Euro + KDV</u>
+              </strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <h5>Notes</h5>
+      <textarea v-model="invoicecreate.note" class="form-control" cols="20" rows="3"></textarea>
+    </div>
+    <br />
+    <div class="row justify-content-center">
+      <button class="btn btn-success" @click="createInvoice()">Fatura kaydet</button>
+    </div>
+    <hr />
+    <div class="row">
+      <h6>Yetkili :</h6>
+      <pre class="text-uppercase"> Nader Alfakesh / Servis müh / nader.alfakesh@dal-group.com</pre>
+    </div>
+  </div>
 </template>
 
 <script>
-
-
 export default {
   name: "invoiceCreate",
-  props: {
-  //  invoiceHeadInfo : Object,
-  //  items : Array,
-   itemHeaders : Array
-  },
-  components: {
-   
-  },
+  props: ["invoice"],
+  components: {},
   methods: {
     total: function() {
       let tmp = 0;
-      this.items.forEach(fofo);
+      this.invoicecreate.items.forEach(fofo);
       function fofo(item) {
         tmp += item.qty * item.unitPrice;
       }
       return tmp;
     },
-    addrow: function(){
-      this.items.push( {
-          id: "",
-          materialNumber: "",
-          description: "",
-          unitPrice: "",
-          qty: ""
-        })
-
+    addrow: function() {
+      this.invoicecreate.items.push({
+        id: "",
+        materialNumber: "",
+        description: "",
+        unitPrice: "",
+        qty: ""
+      });
     },
-    deleteRow: function(index){
-      this.items.splice(index,1)
+    deleteRow: function(index) {
+      this.invoicecreate.items.splice(index, 1);
     },
-    createInvoice: function(){
-      alert("Here we save the data with fetch API")
-      
+    createInvoice: function() {
+      alert("Here we save the data with fetch API");
     }
-
+  },
+  created: function() {
+    if (this.invoice != null) {
+      this.invoicecreate = this.invoice;
+    }
   },
   data: function() {
     return {
-      invoiceHeadInfo:{
-        type:"nader",
-        motorInfo: "",
+      invoicecreate: {
+        type: "",
+        mainProduct: "",
         date: "",
         referance: "",
-        note: "Fatura muhasebe tarafından kesilecektir",
+        note: "",
+        status: "",
         company: {
           name: "",
-          address:"",
+          address: "",
           contact: ""
-        }
+        },
+        items: [
+          {
+            id: null,
+            materialNumber: "",
+            description: "",
+            delivery: "",
+            unitPrice: null,
+            qty: null
+          }
+        ]
       },
-      items: [
-        {
-          id: "",
-          materialNumber: "",
-          description: "",
-          delivery: "",
-          unitPrice: "",
-          qty: ""
-        }
-      ],
-
-      
+      itemHeaders: [
+        "#",
+        "Ürün kodu",
+        "Açıklama",
+        "Termin süresi",
+        "Birim fiyatı",
+        "Miktar",
+        "Tutar"
+      ]
     };
   }
 };
@@ -205,8 +244,8 @@ export default {
   height: 50px;
   width: auto;
 }
-textarea,input {
+textarea,
+input {
   color: green;
 }
-
 </style>

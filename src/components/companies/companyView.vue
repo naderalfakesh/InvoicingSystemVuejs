@@ -1,0 +1,60 @@
+<template>
+    <div>
+        <div class="card" >
+            <div class="card-body">
+                <div class="row">
+                    <div class="col" >
+                        <h5>İsim : </h5>
+                        <p>{{company.name}}</p>
+                    </div>
+                    <div class="col" >
+                        <h5>Tip:</h5>
+                        <p>{{company.type}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" >
+                        <h5>Website : </h5>
+                        <p>{{company.website}}</p>
+                    </div>
+                    <div class="col" >
+                        <h5>Email:</h5>
+                        <p>{{company.email}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" >
+                        <h5>Vergi daires:</h5>
+                        <p>{{company.taxAdmin}}</p>
+                    </div>
+                    <div class="col" >
+                        <h5>Vergi numaras: </h5>
+                        <p>{{company.taxNumber}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" >
+                        <h5>Adres : </h5>
+                        <p>{{company.address}}</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    props: ['company'],
+    data: function(){
+        return {
+
+        };
+    }
+}
+</script>
+
+<style>
+
+</style>

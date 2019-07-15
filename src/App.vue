@@ -1,18 +1,24 @@
 <template>
-  <div id="app">
-    <home-page></home-page>
+  <div id="app" class=" ">
+      <main-frame >
+        <router-view></router-view>
+        
+      </main-frame>
+      <!-- <router-view name="invoice"></router-view> -->
+      
   </div>
 </template>
 
 <script>
-import homePage from './components/homePage'
+import mainFrame from "./components/layout/mainFrame";
 export default {
   name: "app",
   components: {
-    homePage
+    mainFrame
   }
 };
 </script>
 
 <style>
+
 </style>
