@@ -32,6 +32,7 @@
 
 <script>
 export default {
+    name: 'companyIndex',
     data: function(){
         return {
             companies:[
@@ -42,6 +43,7 @@ export default {
                     email: "email 1",
                     website: "website 1",
                     phone: "phone 1",
+                    fax: "fax 1",
                     taxAdmin:"tax admin 1",
                     taxNumber:"tax number 1",
                     address:"address 1",
@@ -53,6 +55,7 @@ export default {
                     email: "email 2",
                     website: "website 2",
                     phone: "phone 2",
+                    fax: "fax 2",
                     taxAdmin:"tax admin 2",
                     taxNumber:"tax number 2",
                     address:"address 2",
@@ -64,6 +67,7 @@ export default {
                     email: "email 3",
                     website: "website 3",
                     phone: "phone 3",
+                    fax: "fax 3",
                     taxAdmin:"tax admin 3",
                     taxNumber:"tax number 3",
                     address:"address 3",
@@ -73,16 +77,16 @@ export default {
     },
     methods:{
         createCompany: function(){
-
+            this.$router.push({name: 'companyCreate' , params: {company: null } })
         },
         showCompany: function(index){
             this.$router.push({name: 'companyView' , params: {company: this.companies[index] } })
         },
         editCompany: function(index){
-
+            this.$router.push({name: 'companyEdit' , params: {company: this.companies[index] } })
         },
         deleteCompany: function(index){
-
+            alert("Are you sure you want to delete this" + index)
         },
     } 
 }

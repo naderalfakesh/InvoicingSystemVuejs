@@ -24,6 +24,16 @@
                 </div>
                 <div class="row">
                     <div class="col" >
+                        <h5>Telefon : </h5>
+                        <p>{{company.phone}}</p>
+                    </div>
+                    <div class="col" >
+                        <h5>Fax:</h5>
+                        <p>{{company.fax}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" >
                         <h5>Vergi daires:</h5>
                         <p>{{company.taxAdmin}}</p>
                     </div>
@@ -46,6 +56,7 @@
 
 <script>
 export default {
+    name: 'companyView',
     props: ['company'],
     data: function(){
         return {

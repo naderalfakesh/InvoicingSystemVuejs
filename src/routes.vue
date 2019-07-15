@@ -8,6 +8,9 @@ import contactCreate from "./components/contacts/contactCreate";
 import companyIndex from "./components/companies/companyIndex";
 import companyView from "./components/companies/companyView";
 import companyCreate from "./components/companies/companyCreate";
+import productIndex from "./components/products/productIndex";
+import productView from "./components/products/productView";
+import productCreate from "./components/products/productCreate";
 
 export default [
   {
@@ -87,6 +90,30 @@ export default [
     path: "/company/create",
     name: "companyCreate",
     component: companyCreate,
+    props: true
+  },
+  {
+    path: "/products",
+    name: "productIndex",
+    component: productIndex,
+    props: false
+  },
+  {
+    path: "/product/view",
+    name: "productView",
+    component: productView,
+    props: true
+  },
+  {
+    path: "/product/edit",
+    name: "productEdit",
+    component: productCreate,
+    props: true
+  },
+  {
+    path: "/product/create",
+    name: "productCreate",
+    component: productCreate,
     props: true
   },
 ];
