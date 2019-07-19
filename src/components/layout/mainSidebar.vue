@@ -26,6 +26,8 @@ export default {
              {name:"çalışanlar",href:"/employees"},
              {name:"teklifler",href:"/offers"},
              {name:"Satınalmalar",href:"/purchases"},
+             {name:"Sarımlar",href:"/rewind"},
+             {name:"Sulu yol verici",href:"/lsd"},
 
             ]
         }

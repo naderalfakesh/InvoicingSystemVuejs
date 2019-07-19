@@ -1,21 +1,21 @@
 <template>
     <div>
-        <button @click="productCreate()" class="btn btn-dark" >Yeni ürün kaydet </button>
-        <table class="table">
+        <button @click="productCreate()" class="btn btn-dark btn-sm" >Yeni ürün kaydet </button>
+        <table class="table table-sm">
             <thead>
                 <th scope="col">#</th>
-                <th scope="col">Ürün tipi</th>
                 <th scope="col">ürün kodü</th>
                 <th scope="col">seri numarası</th>
+                <th scope="col">Ürün tipi</th>
                 <th scope="col">Genel bilgi</th>
                 <th scope="col">Aksyon</th>
             </thead>
             <tbody>
                 <tr v-for="(product,index) in products" v-bind:key="index" >
                     <td>{{index+1}}</td>
-                    <td>{{product.type}}</td>
                     <td>{{product.materialNumber}}</td>
                     <td>{{product.serialNumber}}</td>
+                    <td>{{product.type.toUpperCase()}}</td>
                     <td>{{detailedAttributes(index)}}</td>
                     <td>
                         <button @click="productShow(index)" class="btn btn-sm btn-primary" title="İncele">İ</button>
@@ -36,35 +36,49 @@ export default {
             products: [
                 {
                     id: 1,
-                    type: "type 1",
+                    type: "motor",
                     materialNumber: "Material 1",
                     serialNumber: "Serial 1",
-                    attributes: {
-                        brand: "Brand 1", 
+                    motor: {
+                        brand: "WEG", 
+                        series: "W22", 
+                        type: "Standard", 
                         power: 55,
                         speed: 1000,
+                        voltage: 400,
+                        frequency: 400,
+                        effeciency: "IE2",
+                        frame: 225,
+                        pole:   6,
                     }
                 },    
                 {
                     id: 2,
-                    type: "type 2",
+                    type: "vfd",
                     materialNumber: "Material 2",
                     serialNumber: "Serial 2",
-                    attributes: {
-                        brand: "Brand 2", 
-                        power: 45,
-                        speed: 1500,
+                    vfd: {
+                        brand: "WEG",
+                        series: "CFW09",
+                        type: "softstarter",
+                        power: 315,
+                        current: 600,
+                        voltage: 400,
+                        frame: 10,
                     }
                 },    
                 {
                     id: 3,
-                    type: "type 3",
+                    type: "lsd",
                     materialNumber: "Material 3",
                     serialNumber: "Serial 3",
-                    attributes: {
-                        brand: "Brand 3", 
-                        power: 75,
-                        speed: 3000,
+                    lsd: {
+                        brand: "degdrive",
+                        series: "LSDEmini",
+                        productionDate: "01-02-2019", 
+                        motorpower: 630,
+                        rotorcurrent: 687,
+                        rotorvoltage: 1230
                     }
                 },    
                   
@@ -86,14 +100,26 @@ export default {
             alert("Are you sure you want to delete this" + index) 
         },
         detailedAttributes: function(index){
-            let entries= Object.entries(this.products[index].attributes)
-            let attr=""
-            for(let entry of entries){
-                attr= attr + entry[0] + ": " + entry[1] + ", "
+            let attr="";
+            if(this.products[index].type== "motor"){
+                let mot=this.products[index].motor
+                attr= `${mot.brand} ${mot.series} ${mot.power}kW ${mot.pole}K ${mot.frame}gövde ${mot.frequency}hz ${mot.type} `
+            }
+            else if(this.products[index].type== "vfd"){
+                let vfd=this.products[index].vfd
+                attr=`${vfd.brand} ${vfd.series} ${vfd.type} ${vfd.current}A ${vfd.power}kW`
+            }
+            else if(this.products[index].type== "lsd"){
+                let lsd=this.products[index].lsd
+                attr=`${lsd.brand} ${lsd.series} ${lsd.motorpower}kW  ${lsd.rotorcurrent}A ${lsd.rotorvoltage}V ${lsd.productionDate}`
+            }
+            else {
+                attr="Wrong product type"
             }
             return attr
         }
     },
+    
   
 
 }

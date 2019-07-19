@@ -1,7 +1,7 @@
 <template>
     <div>
-        <button @click="createCompany()" class="btn btn-dark" >Yeni firma kaydet</button>
-        <table class="table">
+        <button @click="createCompany()" class="btn btn-dark btn-sm" >Yeni firma kaydet</button>
+        <table class="table table-sm">
             <thead>
                 <th scope="col">#</th>
                 <th scope="col">Firma</th>
