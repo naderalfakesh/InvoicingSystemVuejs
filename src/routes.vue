@@ -11,6 +11,9 @@ import companyCreate from "./components/companies/companyCreate";
 import productIndex from "./components/products/productIndex";
 import productView from "./components/products/productView";
 import productCreate from "./components/products/productCreate";
+import rewindIndex from "./components/rewinds/rewindIndex";
+import rewindView from "./components/rewinds/rewindView";
+import rewindCreate from "./components/rewinds/rewindCreate";
 
 export default [
   {
@@ -116,6 +119,32 @@ export default [
     component: productCreate,
     props: true
   },
+ 
+  {
+    path: "/rewinds",
+    name: "rewindIndex",
+    component: rewindIndex,
+    props: false
+  },
+  {
+    path: "/rewind/view",
+    name: "rewindView",
+    component: rewindView,
+    props: true
+  },
+  {
+    path: "/rewind/edit",
+    name: "rewindEdit",
+    component: rewindCreate,
+    props: true
+  },
+  {
+    path: "/rewind/create",
+    name: "rewindCreate",
+    component: rewindCreate,
+    props: true
+  },
+ 
 ];
 </script>
 
