@@ -22,13 +22,11 @@ export default {
              {name:"Müşteriler",href:"/companies"},
              {name:"Ürünler",href:"/products"},
              {name:"Servisler",href:"/services"},
-             {name:"kontaklar",href:"/contacts"},
-             {name:"çalışanlar",href:"/employees"},
-             {name:"teklifler",href:"/offers"},
+             {name:"Kontaklar",href:"/contacts"},
+             {name:"Teklifler",href:"/offers"},
              {name:"Satınalmalar",href:"/purchases"},
              {name:"Sarımlar",href:"/rewinds"},
-             {name:"Sulu yol verici",href:"/lsd"},
-
+             {name:"Sulu yol verici",href:"/lsds"},
             ]
         }
     }

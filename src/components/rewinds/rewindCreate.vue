@@ -1,40 +1,6 @@
 <template>
   <div>
     <div class="row">
-      <div class="col">
-        <p>Tel adedi:</p>
-      </div>
-      <div class="col">
-        <label for>tel çapı</label>
-      </div>
-      <div class="col">
-        <p>Tel kesidi:</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <input v-model="actualWire[0].quantity" type="number" step="1" class="form-control" />
-      </div>
-      <div class="col">
-        <input v-model="actualWire[0].guage" type="number" step="0.01" class="form-control" />
-      </div>
-      <div class="col">
-        <p>{{sectioncalc(actualWire[0].guage)}} mm</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <input v-model="actualWire[1].quantity" type="number" class="form-control" />
-      </div>
-      <div class="col">
-        <input v-model="actualWire[1].guage" type="number" step="0.01" class="form-control" />
-      </div>
-      <div class="col">
-        <p>{{sectioncalc(actualWire[1].guage)}} mm</p>
-      </div>
-    </div>
-
-    <div class="row">
       <table class="table table-sm">
         <thead>
           <th scope="col"></th>
@@ -65,6 +31,42 @@
       </table>
     </div>
 
+    <div class="row mt-3">
+      <div class="col">
+        <p>Tel adedi:</p>
+      </div>
+      <div class="col">
+        <label for>tel çapı</label>
+      </div>
+      <div class="col">
+        <p>Tel kesidi:</p>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col">
+        <input v-model="actualWire[0].quantity" type="number" step="1" class="form-control" />
+      </div>
+      <div class="col">
+        <input v-model="actualWire[0].guage" type="number" step="0.01" class="form-control" />
+      </div>
+      <div class="col">
+        <p>{{sectioncalc(actualWire[0].guage)}} mm</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input v-model="actualWire[1].quantity" type="number" class="form-control" />
+      </div>
+      <div class="col">
+        <input v-model="actualWire[1].guage" type="number" step="0.01" class="form-control" />
+      </div>
+      <div class="col">
+        <p>{{sectioncalc(actualWire[1].guage)}} mm</p>
+      </div>
+    </div>
+
+
     <div class="row">
       <div class="col">
         <input v-model="newWire[0].quantity" type="text" class="form-control" />
@@ -90,33 +92,49 @@
       <div class="col">
         <p>{{sectioncalc(newWire[1].guage)}} mm</p>
       </div>
-      <div class="col " v-bind:class=" wireSectionValid() ? 'bg-success' : 'bg-danger' ">
+      <div class="col text-white" v-bind:class=" wireSectionValid() ? 'bg-success' : 'bg-danger' ">
         <p >{{totalsectioncalc(1)}}</p>
       </div>
     </div>
 
 
-      <button @click="newWireCalc()" class="btn btn-primary">Tahmini tel hesapla</button>
-      <div class="row" v-if="result.length>0" >
-        <div class="col">#</div>
-        <div class="col">Adet 1</div>
-        <div class="col">Tel çapı 1</div>
-        <div class="col">Adet 2</div>
-        <div class="col">Tel çapı 1</div>
-        <div class="col">Toplam kesidi</div>
-        <div class="col">Uyum oranı</div>
+      <button @click="newWireCalc()" class="btn btn-primary mt-3">Tahmini tel hesapla</button>
+      <div class="card border-success my-3" v-if="result.length>0">
+        <div class="card-header">
+          <h6>Otomatik hesaplanmış teller</h6>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col"><b>#</b></div>
+            <div class="col"><b>Adet 1</b></div>
+            <div class="col"><b>Tel çapı 1</b></div>
+            <div class="col"><b>Adet 2</b></div>
+            <div class="col"><b>Tel çapı 1</b></div>
+            <div class="col"><b>Toplam kesidi</b></div>
+            <div class="col"><b>Uyum oranı</b></div>
+          </div>
+          <div class="row" v-for="(result,index) in result" v-bind:key="index" >
+            <div class="col"> <input v-bind="selectedradio" @click="chooseWire(index)" class="form-control-sm" type="radio" name="radio" id="" ></div>
+            <div class="col">{{result[0].quantity}}</div>
+            <div class="col">{{result[0].guage}}</div>
+            <div class="col">{{result.length > 1 ? result[1].quantity : '0'}}</div>
+            <div class="col">{{result.length > 1 ? result[1].guage : '0'}}</div>
+            <div class="col">{{result.length > 1 ? (result[0].section + result[1].section).toFixed(4) : result[0].section.toFixed(4)}}</div>
+            <div class="col">{{result.length > 1 ? result[1].guage : '0'}}</div>
+          </div>
+        </div>
       </div>
-      <div class="row" v-for="(result,index) in result" v-bind:key="index" >
-        <div class="col"> <input v-bind="selectedradio" type="radio" name="radio" id="" @click="chooseWire(index)">  {{index+1}}</div>
-        <div class="col">{{result[0].quantity}}</div>
-        <div class="col">{{result[0].guage}}</div>
-        <div class="col">{{result.length > 1 ? result[1].quantity : '0'}}</div>
-        <div class="col">{{result.length > 1 ? result[1].guage : '0'}}</div>
-        <div class="col">{{result.length > 1 ? (result[0].section + result[1].section).toFixed(4) : result[0].section.toFixed(4)}}</div>
-        <div class="col">{{result.length > 1 ? result[1].guage : '0'}}</div>
+      <div class="row">
+        <div class="col">
+        <div class="card bg-light my-3 text-center">
+          <div class="card-body ">
+            <button class="btn btn-primary ">Kaydet</button>
+          </div>
+        </div>
+        </div>
+      </div>
+          
         
-      </div>
-
 
   </div>
 </template>

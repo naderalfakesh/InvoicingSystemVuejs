@@ -14,6 +14,9 @@ import productCreate from "./components/products/productCreate";
 import rewindIndex from "./components/rewinds/rewindIndex";
 import rewindView from "./components/rewinds/rewindView";
 import rewindCreate from "./components/rewinds/rewindCreate";
+import lsdIndex from "./components/lsds/lsdIndex";
+import lsdView from "./components/lsds/lsdView";
+import lsdCreate from "./components/lsds/lsdCreate";
 
 export default [
   {
@@ -145,6 +148,31 @@ export default [
     props: true
   },
  
+  {
+    path: "/lsds",
+    name: "lsdIndex",
+    component: lsdIndex,
+    props: false
+  },
+  {
+    path: "/lsd/view",
+    name: "lsdView",
+    component: lsdView,
+    props: true
+  },
+  {
+    path: "/lsd/edit",
+    name: "lsdEdit",
+    component: lsdCreate,
+    props: true
+  },
+  {
+    path: "/lsd/create",
+    name: "lsdCreate",
+    component: lsdCreate,
+    props: true
+  },
+
 ];
 </script>
 
