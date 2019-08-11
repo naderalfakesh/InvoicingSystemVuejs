@@ -17,6 +17,12 @@ import rewindCreate from "./components/rewinds/rewindCreate";
 import lsdIndex from "./components/lsds/lsdIndex";
 import lsdView from "./components/lsds/lsdView";
 import lsdCreate from "./components/lsds/lsdCreate";
+import offerIndex from "./components/offers/offerIndex";
+import offerView from "./components/offers/offerView";
+import offerCreate from "./components/offers/offerCreate";
+import nameplateIndex from "./components/nameplates/nameplateIndex";
+import nameplateView from "./components/nameplates/nameplateView";
+import nameplateCreate from "./components/nameplates/nameplateCreate";
 
 export default [
   {
@@ -170,6 +176,56 @@ export default [
     path: "/lsd/create",
     name: "lsdCreate",
     component: lsdCreate,
+    props: true
+  },
+
+  {
+    path: "/offers",
+    name: "offerIndex",
+    component: offerIndex,
+    props: false
+  },
+  {
+    path: "/offer/view",
+    name: "offerView",
+    component: offerView,
+    props: true
+  },
+  {
+    path: "/offer/edit",
+    name: "offerEdit",
+    component: offerCreate,
+    props: true
+  },
+  {
+    path: "/offer/create",
+    name: "offerCreate",
+    component: offerCreate,
+    props: true
+  },
+
+  {
+    path: "/nameplates",
+    name: "nameplateIndex",
+    component: nameplateIndex,
+    props: false
+  },
+  {
+    path: "/nameplate/view",
+    name: "nameplateView",
+    component: nameplateView,
+    props: true
+  },
+  {
+    path: "/nameplate/edit",
+    name: "nameplateEdit",
+    component: nameplateCreate,
+    props: true
+  },
+  {
+    path: "/nameplate/create",
+    name: "nameplateCreate",
+    component: nameplateCreate,
     props: true
   },
 

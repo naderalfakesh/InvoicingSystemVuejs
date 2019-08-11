@@ -27,6 +27,7 @@ export default {
              {name:"Satınalmalar",href:"/purchases"},
              {name:"Sarımlar",href:"/rewinds"},
              {name:"Sulu yol verici",href:"/lsds"},
+             {name:"Etiket",href:"/nameplates"},
             ]
         }
     }
