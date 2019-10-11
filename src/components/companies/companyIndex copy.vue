@@ -1,17 +1,41 @@
 <template>
     <div>
-         <indexer :data="companies" :header="header" ></indexer>
+        <button @click="createCompany()" class="btn btn-dark btn-sm" >Yeni firma kaydet</button>
+        <table class="table table-sm">
+            <thead>
+                <th scope="col">#</th>
+                <th scope="col">Firma</th>
+                <th scope="col">Email</th>
+                <th scope="col">Telefon</th>
+                <th scope="col">Website</th>
+                <th scope="col">Adres</th>
+                <th scope="col">Aksyon</th>
+            </thead>
+            <tbody>
+                <tr v-for="(company,index) in companies" v-bind:key="index">
+                    <td>{{index+1}}</td>
+                    <td>{{company.name}}</td>
+                    <td>{{company.email}}</td>
+                    <td>{{company.phone}}</td>
+                    <td>{{company.website}}</td>
+                    <td>{{company.address}}</td>
+                    <td>
+                        <button @click="showCompany(index)" class="btn btn-sm btn-primary" title="İncele">I</button>
+                        <button @click="editCompany(index)" class="btn btn-sm btn-info" title="Düzelt">D</button>
+                        <button @click="deleteCompany(index)" class="btn btn-sm btn-danger" title="Sil">S</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </template>
 
 <script>
-import indexer from '../utilities/indexer.vue'
+
 export default {
     name: 'companyIndex',
-    components:{indexer},
     data: function(){
         return {
-            header: ["id","name","type","email","website","phone","fax","taxAdmin","taxNumber","address"],
             companies:[
                 {
                     id: 1,

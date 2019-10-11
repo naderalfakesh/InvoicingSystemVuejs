@@ -1,18 +1,19 @@
 <template>
   <div >
-      <indexer :data="contacts" :header="header" ></indexer>
+      <indexer :data="services" :header="header" ></indexer>
   </div>
 </template>
 
 <script>
 import indexer from '../utilities/indexer.vue'
 export default {
+    name: "serviceIndex",
     components:{indexer},
     methods:{},
   data: function() {
     return {
       header: ["id","Firma","İsim","Email","Telefon"],
-      contacts: [
+      services: [
         {
           id: 1,
           company:"company number 1",

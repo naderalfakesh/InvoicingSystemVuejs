@@ -23,6 +23,12 @@ import offerCreate from "./components/offers/offerCreate";
 import nameplateIndex from "./components/nameplates/nameplateIndex";
 import nameplateView from "./components/nameplates/nameplateView";
 import nameplateCreate from "./components/nameplates/nameplateCreate";
+import purchaseIndex from "./components/purchases/purchaseIndex";
+import purchaseView from "./components/purchases/purchaseView";
+import purchaseCreate from "./components/purchases/purchaseCreate";
+import serviceIndex from "./components/services/serviceIndex";
+import serviceView from "./components/services/serviceView";
+import serviceCreate from "./components/services/serviceCreate";
 
 export default [
   {
@@ -229,6 +235,56 @@ export default [
     props: true
   },
 
+  {
+    path: "/purchases",
+    name: "purchaseIndex",
+    component: purchaseIndex,
+    props: true
+  },
+  {
+    path: "/purchase/view",
+    name: "purchaseView",
+    component: purchaseView,
+    props: true
+  },
+  {
+    path: "/purchase/edit",
+    name: "purchaseEdit",
+    component: purchaseCreate,
+    props: true
+  },
+  {
+    path: "/purchase/create",
+    name: "purchaseCreate",
+    component: purchaseCreate,
+    props: true
+  },
+
+  {
+    path: "/services",
+    name: "serviceIndex",
+    component: serviceIndex,
+    props: true
+  },
+  {
+    path: "/service/view",
+    name: "serviceView",
+    component: serviceView,
+    props: true
+  },
+  {
+    path: "/service/edit",
+    name: "serviceEdit",
+    component: serviceCreate,
+    props: true
+  },
+  {
+    path: "/service/create",
+    name: "serviceCreate",
+    component: serviceCreate,
+    props: true
+  },
+  
 ];
 </script>
 

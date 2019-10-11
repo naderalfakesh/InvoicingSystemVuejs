@@ -1,17 +1,18 @@
 <template>
-    <div class="row justify-content-center">
+<div class="row justify-content-center">
+    
     <div id="frame">
         <div id="partNumber">
-            <p>{{materialNumber}}</p>
+            <p>{{nameplate.materialNumber}}</p>
         </div>
         <div id="baslik">
-            <div id="baslikLeft"><img src="./model.jpg" alt=""><p>{{model}}</p></div>
+            <div id="baslikLeft"><img src="./model.jpg" alt=""><p>{{nameplate.model}}</p></div>
             <div id="baslikMiddle">
                 <div id="smoke">
-                    <p>{{teao1}}</p>
-                    <p>{{teao2}}</p>
+                    <p>{{nameplate.teao1}}</p>
+                    <p>{{nameplate.teao2}}</p>
                 </div>
-                <p id="serialNum" >{{productionDate}}   {{serialNumber}}</p>
+                <p id="serialNum" >{{nameplate.productionDate}}   {{nameplate.serialNumber}}</p>
             </div>
             <div id="baslikRight">
                 <div id="standards">
@@ -30,13 +31,13 @@
         <div id="tablo">
             <div id="item1">
                 <div id="row1">
-                    <p>3 ~ {{frame}}-{{pole}}</p>
+                    <p>3 ~ {{nameplate.frame}}-{{nameplate.pole}}</p>
                     <p></p>
-                    <p>{{protectionClass}} INS. CL. {{insulationClass}} &Tab; DT {{deltaT}}K</p>
+                    <p>{{nameplate.protectionClass}} INS. CL. {{nameplate.insulationClass}} &Tab; DT {{nameplate.deltaT}}K</p>
                     <p></p>
-                    <p>{{duty}}</p>
-                    <p>SF {{serviceFactor}}</p>
-                    <p>{{smokeClass}}</p>
+                    <p>{{nameplate.duty}}</p>
+                    <p>SF {{nameplate.serviceFactor}}</p>
+                    <p>{{nameplate.smokeClass}}</p>
                 </div>
                 <div id="row2">
                     <div class="voltage"><p class="center">V</p></div>
@@ -52,52 +53,267 @@
                 </div>
                 <div id="row3">
                     <div class="voltage">
-                        <div v-for="(v,index) in voltage" v-bind:key="index"><p>{{v}}</p></div>
+                        <div v-for="(v,index) in nameplate.voltage" v-bind:key="index"><p>{{v}}</p></div>
                     </div>
                     <div class="frequency">
-                        <div v-for="(f,index) in frequency" v-bind:key="index"><p>{{f}}</p></div>
+                        <div v-for="(f,index) in nameplate.frequency" v-bind:key="index"><p>{{f}}</p></div>
                     </div>
                     <div class="power">
-                        <div ><p>{{power}}</p></div>
+                        <div ><p>{{nameplate.power[0]}}</p></div>
                     </div>
                     <div class="speed">
-                        <div v-for="(row,index) in speed" v-bind:key="index"><p>{{row}}</p></div>
+                        <div v-for="(row,index) in nameplate.speed" v-bind:key="index"><p>{{row}}</p></div>
                     </div>
                     <div class="current">
-                        <div v-for="(row,index) in current" v-bind:key="index"><p>{{row}}</p></div>
+                        <div v-for="(row,index) in nameplate.current" v-bind:key="index"><p>{{row}}</p></div>
                     </div>
                     <div class="powerFactor">
-                        <div v-for="(row,index) in powerFactor" v-bind:key="index"><p>{{row}}</p></div>
+                        <div v-for="(row,index) in nameplate.powerFactor" v-bind:key="index"><p>{{row}}</p></div>
                     </div>
                     <div class="IECode">
-                            <div ><p>{{IECode}}</p></div>
+                            <div ><p>{{nameplate.IECode}}</p></div>
                     </div>
                     <div class="eff100">
-                        <div v-for="(row,index) in eff100" v-bind:key="index"><p>{{row}}</p></div>
+                        <div v-for="(row,index) in nameplate.eff100" v-bind:key="index"><p>{{row}}</p></div>
                     </div>
                     <div class="eff75">
-                        <div v-for="(row,index) in eff75" v-bind:key="index"><p>{{row}}</p></div>
+                        <div v-for="(row,index) in nameplate.eff75" v-bind:key="index"><p>{{row}}</p></div>
                     </div>
                     <div class="eff50">
-                        <div v-for="(row,index) in eff50" v-bind:key="index"><p>{{row}}</p></div>
+                        <div v-for="(row,index) in nameplate.eff50" v-bind:key="index"><p>{{row}}</p></div>
                     </div> 
                 </div>
             </div>
             <div id="item2">
                 <div id="bearings">
                     <div id="motorSymbol"><img src="./motorsimge.jpg" alt=""></div>
-                    <div id="DEbearing"><p>  {{deBearing}} ({{deGreaseQTY}}g)</p></div>
-                    <div id="NDEbearing"><p> {{ndeBearing}} ({{ndeGreaseQTY}}g)</p></div>
-                    <div id="greaseType"><p>{{grease}}</p><p>{{greasePeriod}} h</p></div>
+                    <div id="DEbearing"><p>  {{nameplate.deBearing}} ({{nameplate.deGreaseQTY}}g)</p></div>
+                    <div id="NDEbearing"><p> {{nameplate.ndeBearing}} ({{nameplate.ndeGreaseQTY}}g)</p></div>
+                    <div id="greaseType"><p>{{nameplate.grease}}</p><p>{{nameplate.greasePeriod}} h</p></div>
                 </div>
                 <div id="delta"><img src="./delta.jpg" alt=""></div>
                 <div id="star"><img src="./star.jpg" alt=""></div>
-                <div id="nema"><p>{{nema1}}</p><p>{{nema2}}</p></div>
-                <div id="altweg"><p>Alt <b>{{altitude}}</b> m.a.s.l.    <b>{{weight}}</b> kg</p> </div>
+                <div id="nema"><p>{{nameplate.nema1}}</p><p>{{nameplate.nema2}}</p></div>
+                <div id="altweg"><p>Alt <b>{{nameplate.altitude}}</b> m.a.s.l.    <b>{{nameplate.weight}}</b> kg</p> </div>
             </div>
         </div>
     </div>
+        
+    <div class="card border-primary w-100 mt-3">
+        <div class="card-header bg-primary text-white">
+            <h5>Etiket Başlığı</h5>
+        </div>
+        <div class="card-body ">
+            <div class="row">
+                <div class="col">
+                    <b>Seri:</b>
+                    <input v-model="nameplate.model" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>İmalat tarihi</b>
+                    <input v-model="nameplate.productionDate" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Seri numarası</b>
+                    <input v-model="nameplate.serialNumber" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Ürün kodu</b>
+                    <input v-model="nameplate.materialNumber" type="text" class="form-control">
+                </div>
+            </div>
+        </div>
     </div>
+    
+    <div class="card border-secondary w-100 mt-3">
+        <div class="card-header bg-secondary text-white">
+            <h5>Genel özelikleri</h5>
+        </div>
+        <div class="card-body ">
+            <div class="row">
+                <div class="col">
+                    <b>Gövde:</b>
+                    <input v-model="nameplate.frame" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Kutup sayısı</b>
+                    <input v-model="nameplate.pole" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Koruma sınıfı</b>
+                    <input v-model="nameplate.protectionClass" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>izöle sınıfı</b>
+                    <input v-model="nameplate.insulationClass" type="text" class="form-control">
+                </div>
+                <div class="w-100"></div>
+                <div class="col">
+                    <b>Delta T</b>
+                    <input v-model="nameplate.deltaT" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Duty</b>
+                    <input v-model="nameplate.duty" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Service Factor: </b>
+                    <input v-model="nameplate.serviceFactor" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Smoke class: </b>
+                    <input v-model="nameplate.smokeClass" type="text" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="card border-info w-100 mt-3">
+        <div class="card-header bg-info text-white">
+            <h5>Genel özelikleri</h5>
+        </div>
+        <div class="card-body ">
+            <div class="row">
+                <div class="col">
+                    <b>Voltage:</b>
+                    <input v-model="nameplate.voltage[0]" type="text" class="form-control">
+                    <input v-model="nameplate.voltage[1]" type="text" class="form-control">
+                    <input v-model="nameplate.voltage[2]" type="text" class="form-control">
+                    <input v-model="nameplate.voltage[3]" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Frekans</b>
+                    <input v-model="nameplate.frequency[0]" type="text" class="form-control">
+                    <input v-model="nameplate.frequency[1]" type="text" class="form-control">
+                    <input v-model="nameplate.frequency[2]" type="text" class="form-control">
+                    <input v-model="nameplate.frequency[3]" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Güç</b>
+                    <input v-model="nameplate.power[0]" type="text" class="form-control">
+                    <input v-model="nameplate.power[1]" type="text" class="form-control">
+                    <input v-model="nameplate.power[2]" type="text" class="form-control">
+                    <input v-model="nameplate.power[3]" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Hız</b>
+                    <input v-model="nameplate.speed[0]" type="text" class="form-control">
+                    <input v-model="nameplate.speed[1]" type="text" class="form-control">
+                    <input v-model="nameplate.speed[2]" type="text" class="form-control">
+                    <input v-model="nameplate.speed[3]" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Akım</b>
+                    <input v-model="nameplate.current[0]" type="text" class="form-control">
+                    <input v-model="nameplate.current[1]" type="text" class="form-control">
+                    <input v-model="nameplate.current[2]" type="text" class="form-control">
+                    <input v-model="nameplate.current[3]" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Güç faktoru</b>
+                    <input v-model="nameplate.powerFactor[0]" type="text" class="form-control">
+                    <input v-model="nameplate.powerFactor[1]" type="text" class="form-control">
+                    <input v-model="nameplate.powerFactor[2]" type="text" class="form-control">
+                    <input v-model="nameplate.powerFactor[3]" type="text" class="form-control">
+                </div>
+                <div class="w-100"></div>
+                <div class="col">
+                    <b>IE sınıfı: </b>
+                    <input v-model="nameplate.IECode" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>100% verimlik: </b>
+                    <input v-model="nameplate.eff100[0]" type="text" class="form-control">
+                    <input v-model="nameplate.eff100[1]" type="text" class="form-control">
+                    <input v-model="nameplate.eff100[2]" type="text" class="form-control">
+                    <input v-model="nameplate.eff100[3]" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>75% verimlik: </b>
+                    <input v-model="nameplate.eff75[0]" type="text" class="form-control">
+                    <input v-model="nameplate.eff75[1]" type="text" class="form-control">
+                    <input v-model="nameplate.eff75[2]" type="text" class="form-control">
+                    <input v-model="nameplate.eff75[3]" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>50% verimlik: </b>
+                    <input v-model="nameplate.eff50[0]" type="text" class="form-control">
+                    <input v-model="nameplate.eff50[1]" type="text" class="form-control">
+                    <input v-model="nameplate.eff50[2]" type="text" class="form-control">
+                    <input v-model="nameplate.eff50[3]" type="text" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-warning w-100 mt-3">
+        <div class="card-header bg-warning text-white">
+            <h5>Genel özelikleri</h5>
+        </div>
+        <div class="card-body ">
+            <div class="row">
+                <div class="col">
+                    <b>DE rulmanı</b>
+                    <input v-model="nameplate.deBearing" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>DE gres miktarı</b>
+                    <input v-model="nameplate.deGreaseQTY" type="text" class="form-control">
+                </div>
+                <div class="w-100"></div>
+                <div class="col">
+                    <b>NDE rulmanı</b>
+                    <input v-model="nameplate.ndeBearing" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>NDE gres miktarı</b>
+                    <input v-model="nameplate.ndeGreaseQTY" type="text" class="form-control">
+                </div>
+                <div class="w-100"></div>
+                <div class="col">
+                    <b>Gres tipi</b>
+                    <input v-model="nameplate.grease" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Gresleme peryodu</b>
+                    <input v-model="nameplate.greasePeriod" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Ağırlık</b>
+                    <input v-model="nameplate.weight" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Rakım</b>
+                    <input v-model="nameplate.altitude" type="text" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-secondary w-100 mt-3">
+        <div class="card-header bg-secondary text-white">
+            <h5>Genel özelikleri</h5>
+        </div>
+        <div class="card-body ">
+            <div class="row">
+                <div class="col">
+                    <b>Nema yazısı</b>
+                    <input v-model="nameplate.nema1" type="text" class="form-control">
+                    <input v-model="nameplate.nema2" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <b>Smoke yazısı</b>
+                    <input v-model="nameplate.teao1" type="text" class="form-control">
+                    <input v-model="nameplate.teao2" type="text" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card w-100 my-3">
+        <button @click="save()" class="btn btn-primary" >Kaydet</button>
+    </div>
+
+</div>
 </template>
 
 <script>
@@ -105,44 +321,49 @@ export default {
     name: "nameplateView",
     data: function(){
         return {
-            model:"W22",
-            productionDate: "20MAY2019",
-            serialNumber: "1049107714",
-            materialNumber: "14888427",
-            frame: "250S/M",
-            pole: "04",
-            protectionClass: "IP55",
-            insulationClass: "H",
-            deltaT: "80",
-            duty: "S1",
-            serviceFactor: "1.00",
-            smokeClass: "S2 400 C-2h",
-            voltage:["380 / 660","400 / 690","415 / -","460 / -"],
-            frequency:["50","60"],
-            power: "55",
-            speed:["1470","1475","1475",""],
-            current:["104 / 60","100 / 57,7","97,4 / -","87,0 / -"],
-            powerFactor:["0,86","0,85","0,84","0,85"],
-            IECode:"IE2",
-            eff100:["93,5","93,1","93,1"],
-            eff75:["93,5","93,2","92,9"],
-            eff50:["93,7","93,2","92,1"],
-            deBearing: "6314-C3",
-            ndeBearing: "6314-C3",
-            deGreaseQTY: "53",
-            ndeGreaseQTY: "53",
-            grease: "KRYTOX GPL 225",
-            greasePeriod: "20000",
-            nema1: "NEMA Eff 93,7% 75HP 460V 60 Hz 1775RP",
-            nema2: "87,9 A PF 0,85 Des A Code H SF 1,15",
-            altitude: "1000",
-            weight: "384",
-            teao1: "TEAO - Totally Enclosed Air Over",
-            teao2: "S1 40C only with FAN coupled",
-
-
+            nameplate: {
+                model:"W22",
+                productionDate: "20MAY2019",
+                serialNumber: "1049107714",
+                materialNumber: "14888427",
+                frame: "250S/M",
+                pole: "04",
+                protectionClass: "IP55",
+                insulationClass: "H",
+                deltaT: "80",
+                duty: "S1",
+                serviceFactor: "1.00",
+                smokeClass: "S2 400 C-2h",
+                voltage:["380 / 660","400 / 690","415 / -","460 / -"],
+                frequency:["50","60"],
+                power: ["55"],
+                speed:["1470","1475","1475","1600"],
+                current:["104 / 60","100 / 57,7","97,4 / -","87,0 / -"],
+                powerFactor:["0,86","0,85","0,84","0,85"],
+                IECode:"IE2",
+                eff100:["93,5","93,1","93,1"],
+                eff75:["93,5","93,2","92,9"],
+                eff50:["93,7","93,2","92,1"],
+                deBearing: "6314-C3",
+                ndeBearing: "6314-C3",
+                deGreaseQTY: "53",
+                ndeGreaseQTY: "53",
+                grease: "KRYTOX GPL 225",
+                greasePeriod: "20000",
+                nema1: "NEMA Eff 93,7% 75HP 460V 60 Hz 1775RP",
+                nema2: "87,9 A PF 0,85 Des A Code H SF 1,15",
+                altitude: "1000",
+                weight: "384",
+                teao1: "TEAO - Totally Enclosed Air Over",
+                teao2: "S1 40C only with FAN coupled",
+            }
         };
-    }
+    },
+    methods:{
+        save: function () {
+         alert('the etiket will be saved')   
+        }
+    },
     
 }
 </script>
@@ -170,10 +391,12 @@ export default {
     #partNumber{
         grid-area: partNumber;
         align-self: center;
-        writing-mode: sideways-lr;
         letter-spacing: 1px;
         font-weight: 900;
-        /* text-orientation: ; */
+        transform: rotate(-90deg);
+        /* writing-mode: sideways-lr;
+        text-orientation: mixed; */
+        
     }
     #baslik{
         height: 75px;
@@ -432,9 +655,9 @@ export default {
     #eac{
         margin-left: 30px;
     }
-    #caeText{
+    /* #caeText{
        
-    }
+    } */
     #baslikRight{
         display: flex;
         justify-content: space-between;

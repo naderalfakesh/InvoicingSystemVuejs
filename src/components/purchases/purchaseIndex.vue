@@ -1,13 +1,12 @@
 <template>
-    <div>
-         <indexer :data="companies" :header="header" ></indexer>
-    </div>
+  <div>
+      <indexer :data="companies" :header="header" ></indexer>
+  </div>
 </template>
 
 <script>
 import indexer from '../utilities/indexer.vue'
 export default {
-    name: 'companyIndex',
     components:{indexer},
     data: function(){
         return {
@@ -52,20 +51,7 @@ export default {
             ]
         };
     },
-    methods:{
-        createCompany: function(){
-            this.$router.push({name: 'companyCreate' , params: {company: null } })
-        },
-        showCompany: function(index){
-            this.$router.push({name: 'companyView' , params: {company: this.companies[index] } })
-        },
-        editCompany: function(index){
-            this.$router.push({name: 'companyEdit' , params: {company: this.companies[index] } })
-        },
-        deleteCompany: function(index){
-            alert("Are you sure you want to delete this" + index)
-        },
-    } 
+
 }
 </script>
 
