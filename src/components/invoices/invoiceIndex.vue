@@ -1,12 +1,13 @@
 <template>
   <div>
-    <indexer :data="invoices" :header="header" ></indexer>
+    <indexer :data="invoices" :header="header" :nesne="'invoice'" ></indexer>
   </div>
 </template>
 
 <script>
 import indexer from '../utilities/indexer.vue'
 export default {
+    name: 'invoiceIndex',
     components:{indexer},
     methods:{},
   data: function() {

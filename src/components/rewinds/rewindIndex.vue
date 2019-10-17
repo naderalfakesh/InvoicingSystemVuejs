@@ -1,6 +1,6 @@
 <template>
     <div>
-      <indexer :data="rewinds" :header="header" ></indexer>
+      <indexer :data="rewinds" :header="header" :nesne="'rewind'" ></indexer>
     </div>
 </template>
 

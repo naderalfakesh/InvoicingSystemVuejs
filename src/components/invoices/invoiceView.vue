@@ -92,7 +92,7 @@
 
 <script>
 export default {
-  name: 'invoiceview',
+  name: 'invoiceView',
   props: ['invoice'],
   methods: {
     total: function() {

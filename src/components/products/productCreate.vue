@@ -5,7 +5,12 @@
                 <div class="row">
                     <div class="col-6">
                         <h5>Ürün tipi</h5>
-                        <input v-model="productcreate.type" placeholder="Motor , VFD , LSD" type="text" class="form-control">
+                        <select v-model="productcreate.type" class="form-control">
+                            <option value="" disabled selected>Ürün tipi seçin</option>
+                            <option value="motor">Motor</option>
+                            <option value="vfd">Hız kontrol</option>
+                            <option value="lsd">Yol verici</option>
+                        </select>
                     </div>
                     <div class="col-6">
                         <h5>Ürün Kodu</h5>
@@ -186,14 +191,14 @@ export default {
                         voltage: null,
                         frame: null,
                     },
-                    lsd: {
-                        brand: "",
-                        series: "",
-                        productionDate: "", 
-                        motorpower: null,
-                        rotorcurrent: null,
-                        rotorvoltage: null
-                    }
+                lsd: {
+                    brand: "",
+                    series: "",
+                    productionDate: "", 
+                    motorpower: null,
+                    rotorcurrent: null,
+                    rotorvoltage: null
+                }
 
             }
         };

@@ -10,7 +10,7 @@
           <div class="col-8">
             <h5>Firma:</h5>
             <p>
-              {{contact.company}}
+              {{contact.company.name}}
             </p>
           </div>
           <div class="col-4">

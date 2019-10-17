@@ -44,8 +44,11 @@
                 </div>
                 <div class="row">
                     <div class="col" >
-                        <h5>Adres : </h5>
-                        <p>{{company.address}}</p>
+                        <div v-for="(address,i) in company.addresses" v-bind:key="i">
+                            <h5>Adres {{i+1}} : {{address.main ? 'varsayılan' : null}}</h5>
+                            <p>{{address.address}}</p>
+                        </div>
+
                     </div>
                 </div>
                 

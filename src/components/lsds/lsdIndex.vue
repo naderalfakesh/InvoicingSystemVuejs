@@ -1,13 +1,13 @@
 <template>
 <div>
-    <indexer :data="lsds" :header="header" ></indexer>
+    <indexer :data="lsds" :header="header" :nesne="'lsd'" ></indexer>
 </div>
 </template>
 
 <script>
 import indexer from '../utilities/indexer.vue'
 export default {
-    name: "lsdCreate",
+    name: "lsdIndex",
     components:{indexer},
     data: function(){
         return {

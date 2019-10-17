@@ -1,13 +1,13 @@
 <template>
     <div>
-      <indexer :data="nameplates" :header="header" ></indexer>
+      <indexer :data="nameplates" :header="header" :nesne="'nameplate'" ></indexer>
     </div>
 </template>
 
 <script>
 import indexer from '../utilities/indexer.vue'
 export default {
-    name: "offerIndex",
+    name: "nameplateIndex",
     components:{indexer},
     data: function(){
         return {

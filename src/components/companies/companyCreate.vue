@@ -45,7 +45,18 @@
                 <div class="row">
                     <div class="col">
                         <h5>Adres</h5>
-                        <p><input v-model="companyCreate.address" type="text" class="form-control"></p>
+                        <div class="form-inline">
+                            <div class="form-group"  v-for="(adres,i) in companyCreate.addresses" v-bind:key="i">
+                                <!-- <input v-model="adres.main" type="checkbox" class="form-control"> -->
+                                <input v-model="adres.address" type="text" class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button @click="save()" class="btn btn-primary">Kaydet</button>
                     </div>
                 </div>
             </div>
@@ -54,6 +65,8 @@
 </template>
 
 <script>
+ /* eslint-disable */
+import axios from 'axios'
 export default {
     name: 'companyCreate',
     props: ['company'],
@@ -69,7 +82,7 @@ export default {
                 fax: "",
                 taxAdmin:"",
                 taxNumber:"",
-                address:"",
+                addresses: [{main: true , address: ""}] ,
             }
         };
     },
@@ -77,7 +90,57 @@ export default {
         if(this.company != null){
             this.companyCreate = this.company
         }
-    }
+    },
+    methods:{
+      save: function (){
+          if(this.company != null){
+              this.update()
+          }
+          else{
+              this.create()
+          }
+      },  
+      update: function (){
+          axios
+          .put('http://localhost:5000/company',{
+            id: this.companyCreate._id,
+            name: this.companyCreate.name,
+            type: this.companyCreate.type,
+            email: this.companyCreate.email,
+            website: this.companyCreate.website,
+            phone: this.companyCreate.phone,
+            fax: this.companyCreate.fax,
+            taxAdmin: this.companyCreate.taxAdmin,
+            taxNumber: this.companyCreate.taxNumber,
+            addresses: this.companyCreate.addresses
+          })
+          .then(res => {
+              console.log( res.data);
+              this.$router.push({name: 'companyIndex'})
+              })
+          .catch(err => console.log(err))
+      },
+      create: function(){
+          axios
+          .post('http://localhost:5000/company',{
+            id: null,
+            name: this.companyCreate.name,
+            type: this.companyCreate.type,
+            email: this.companyCreate.email,
+            website: this.companyCreate.website,
+            phone: this.companyCreate.phone,
+            fax: this.companyCreate.fax,
+            taxAdmin: this.companyCreate.taxAdmin,
+            taxNumber: this.companyCreate.taxNumber,
+            addresses: this.companyCreate.addresses
+          })
+          .then(res => {
+              console.log( res.data);
+              this.$router.push({name: 'companyIndex'})
+              })
+          .catch(err => console.log(err))
+      }  
+    },
 }
 </script>
 

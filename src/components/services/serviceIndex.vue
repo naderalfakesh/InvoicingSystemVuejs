@@ -1,6 +1,6 @@
 <template>
   <div >
-      <indexer :data="services" :header="header" ></indexer>
+      <indexer :data="services" :header="header" :nesne="'service'" ></indexer>
   </div>
 </template>
 
