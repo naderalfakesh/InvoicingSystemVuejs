@@ -10,12 +10,10 @@
           <div class="col-8">
             <h5>Motor bilgileri:</h5>
             <p>
-              <input
-                type="text"
-                class="form-control"
-                v-model="invoicecreate.mainProduct"
-                placeholder="30kw 02p W22 B35"
-              />
+              <select v-model="invoicecreate.product"  class="form-control">
+                <option value="0" selected disabled >Ürün seçiniz</option>
+                <option v-for="(product,index) in products" :key="index" :value="product">{{product.type + " " + product.summary}}</option>
+              </select>
             </p>
           </div>
           <div class="col-4">
@@ -35,12 +33,10 @@
           <div class="col-8">
             <h5>Firma unvanı:</h5>
             <p>
-              <input
-                type="text"
-                class="form-control"
-                v-model="invoicecreate.company.name"
-                placeholder="Dal Elektrik A.Ş."
-              />
+              <select v-model="invoicecreate.company"  class="form-control">
+                <option value="0" selected disabled>Firma seçiniz</option>
+                <option v-for="(company,index) in companies" :key="index" :value="company">{{company.name}}</option>
+              </select>
             </p>
           </div>
           <div class="col-4">
@@ -59,23 +55,19 @@
           <div class="col-8">
             <h5>Adres :</h5>
             <p>
-              <input
-                type="text"
-                class="form-control"
-                v-model="invoicecreate.company.address"
-                placeholder="Adnan Kahveci Bulvarı, Haydar Akın İş Merkezi-1 No:206 Kat:4. 34188 Şirinevler-İstanbul Tel:0212 451 56 06 www.dal.com.tr"
-              />
+              <select v-model="invoicecreate.deliveryAddress"  class="form-control">
+                <option value="0" selected disabled>address seçiniz</option>
+                <option v-for="(address,index) in invoicecreate.company.addresses" :key="index" :value="address._id">{{address.address}}</option>
+              </select>
             </p>
           </div>
           <div class="col-4">
             <h5>kontak kişi :</h5>
             <p>
-              <input
-                type="text"
-                class="form-control"
-                v-model="invoicecreate.company.contact"
-                placeholder="Nadir bey"
-              />
+              <select v-model="invoicecreate.contact"  class="form-control">
+                <option value="0" selected disabled>kontak seçiniz</option>
+                <option v-for="(contact,index) in contacts" :key="index" :value="contact">{{contact.name}}</option>
+              </select>
             </p>
           </div>
         </div>
@@ -150,7 +142,7 @@
     </div>
     <br />
     <div class="row justify-content-center">
-      <button class="btn btn-success" @click="createInvoice()">Fatura kaydet</button>
+      <button class="btn btn-success" @click="save()">Kaydet</button>
     </div>
     <hr />
     <div class="row">
@@ -161,17 +153,86 @@
 </template>
 
 <script>
+/* eslint-disable */
+import axios from 'axios'
+
 export default {
   name: "invoiceCreate",
   props: ["invoice"],
   components: {},
-  methods: {
+  
+  created: function() {
+    if (this.invoice != null) {
+      this.invoicecreate = this.invoice;
+    }
+    axios
+    .get('http://localhost:5000/company')
+    .then(res => {
+        this.companies = res.data
+        })
+    .catch(err => console.log(err))
+    axios
+    .get('http://localhost:5000/product')
+    .then(res => {
+        this.products = res.data
+        })
+    .catch(err => console.log(err))
+    axios
+    .get('http://localhost:5000/contact')
+    .then(res => {
+        this.contacts = res.data
+        })
+    .catch(err => console.log(err))
+  },
+  data: function() {
+    return {
+      invoicecreate: {
+        type: "",
+        date: "",
+        referance: "",
+        note: "",
+        status: "",
+        deliveryAddress: 0,
+        product: 0,
+        company: 0,
+        contact: 0,
+        items: [
+          {
+            id: null,
+            materialNumber: "",
+            description: "",
+            delivery: "",
+            unitPrice: null,
+            qty: null
+          }
+        ]
+      },
+      companies: [{_id: 0 , name: 'company'}],
+      products: [{_id: 0 , type: 'motor'}],
+      contacts: [{_id: 0 , type: 'motor'}],
+      itemHeaders: [
+        "#",
+        "Ürün kodu",
+        "Açıklama",
+        "Termin süresi",
+        "Birim fiyatı",
+        "Miktar",
+        "Tutar"
+      ]
+    };
+  },
+  methods:{
     total: function() {
       let tmp = 0;
-      this.invoicecreate.items.forEach(fofo);
-      function fofo(item) {
-        tmp += item.qty * item.unitPrice;
+      try {
+        this.invoicecreate.items.forEach(fofo);
+        function fofo(item) {
+          tmp += item.qty * item.unitPrice;
+        }
+      } catch (error) {
+        console.log(error)
       }
+      
       return tmp;
     },
     addrow: function() {
@@ -186,51 +247,61 @@ export default {
     deleteRow: function(index) {
       this.invoicecreate.items.splice(index, 1);
     },
-    createInvoice: function() {
-      alert("Here we save the data with fetch API");
-    }
+    save: function (){
+
+        if(this.invoice != null){
+            this.update()
+        }
+        else{
+            this.create()
+        }
+    },  
+    update: function (){
+        axios
+        .put('http://localhost:5000/invoice',{
+          id: this.invoicecreate._id, 
+          date: this.invoicecreate.date,
+          referance: this.invoicecreate.referance,
+          note: this.invoicecreate.note,
+          status: this.invoicecreate.status,
+          items: this.invoicecreate.items,
+          deliveryAddress: this.invoicecreate.deliveryAddress,
+          company: this.invoicecreate.company._id,
+          product: this.invoicecreate.product._id,
+          contact: this.invoicecreate.contact._id,
+        })
+        .then(res => {
+            console.log( res.data);
+            this.$router.push({name: 'invoiceIndex'})
+            })
+        .catch(err => console.log('Update() ' + err))
+    },
+    create: function(){
+      this.invoicecreate.status = 'new'
+        axios
+        .post('http://localhost:5000/invoice',{
+          id: null, 
+          type: "invoice", 
+          date: this.invoicecreate.date,
+          referance: this.invoicecreate.referance,
+          note: this.invoicecreate.note,
+          status: this.invoicecreate.status,
+          items: this.invoicecreate.items,
+          deliveryAddress: this.invoicecreate.deliveryAddress,
+          company: this.invoicecreate.company._id,
+          product: this.invoicecreate.product._id,
+          contact: this.invoicecreate.contact._id,
+        })
+        .then(res => {
+            console.log( res.data)
+            this.$router.push({name: 'invoiceIndex'})
+            })
+        .catch(err => console.log('Create() ' + err))
+    }  
+    
   },
-  created: function() {
-    if (this.invoice != null) {
-      this.invoicecreate = this.invoice;
-    }
-  },
-  data: function() {
-    return {
-      invoicecreate: {
-        type: "",
-        mainProduct: "",
-        date: "",
-        referance: "",
-        note: "",
-        status: "",
-        company: {
-          name: "",
-          address: "",
-          contact: ""
-        },
-        items: [
-          {
-            id: null,
-            materialNumber: "",
-            description: "",
-            delivery: "",
-            unitPrice: null,
-            qty: null
-          }
-        ]
-      },
-      itemHeaders: [
-        "#",
-        "Ürün kodu",
-        "Açıklama",
-        "Termin süresi",
-        "Birim fiyatı",
-        "Miktar",
-        "Tutar"
-      ]
-    };
-  }
+
+
 };
 </script>
 

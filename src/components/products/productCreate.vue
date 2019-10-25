@@ -37,7 +37,6 @@
                         <input v-model="productcreate.motor.series" placeholder="W22,W21..." type="text" class="form-control">
                     </div>
                 </div>
-            </div>
                 <div class="row">
                     <div class="col-6">
                         <h5>Biçim</h5>
@@ -45,7 +44,7 @@
                     </div>
                     <div class="col-6">
                         <h5>Güç</h5>
-                        <input v-model="productcreate.motor.power" placeholder="W22,W21..." type="text" class="form-control">
+                        <input v-model="productcreate.motor.power" placeholder="22,75,315" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="row">
@@ -78,6 +77,8 @@
                         <input v-model="productcreate.motor.pole" placeholder="2,4,6...." type="text" class="form-control">
                     </div>
                 </div>
+            </div>
+
         </div>
         <div v-if="productcreate.type == 'vfd' " class="card">
             <div class="card-body">
@@ -98,7 +99,7 @@
                     </div>
                     <div class="col-6">
                         <h5>Güç</h5>
-                        <input v-model="productcreate.vfd.power" placeholder="315,55,90...." type="text" class="form-control">
+                        <input v-model="productcreate.vfd.voltage" placeholder="315,55,90...." type="text" class="form-control">
                     </div>
                 </div>
                 <div class="row">
@@ -134,17 +135,17 @@
                 <div class="row">
                     <div class="col-6">
                         <h5>Motor gücü</h5>
-                        <input v-model="productcreate.lsd.motorPower" placeholder="630,2800..." type="text" class="form-control">
+                        <input v-model="productcreate.lsd.motorpower" placeholder="630,2800..." type="text" class="form-control">
                     </div>
                     <div class="col-6">
                         <h5>Rotor akımı</h5>
-                        <input v-model="productcreate.lsd.rotorCurrent" placeholder="856,1205..." type="text" class="form-control">
+                        <input v-model="productcreate.lsd.rotorcurrent" placeholder="856,1205..." type="text" class="form-control">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <h5>Rotor gerilimi</h5>
-                        <input v-model="productcreate.lsd.rotorVoltage" placeholder="750,1230..." type="text" class="form-control">
+                        <input v-model="productcreate.lsd.rotorvoltage" placeholder="750,1230..." type="text" class="form-control">
                     </div>
                     <div class="col-6">
                         <h5>Seri</h5>
@@ -154,12 +155,14 @@
             </div>
         </div>
         <div class="row justify-content-center">
-        <button class="btn btn-sm btn-dark" @click="createProduct()">Ürün kaydet</button>
+        <button class="btn btn-sm btn-primary" @click="save()">Kaydet</button>
         </div>
     </div>
 </template>
 
 <script>
+/* eslint-disable */
+import axios from 'axios'
 export default {
     name: "productCreate",
     props: ["product"],
@@ -209,9 +212,49 @@ export default {
         }
     },
     methods: {
-        createProduct: function(){
-            alert("here we save the product info")
-        }
+        save: function (){
+
+          if(this.product != null){
+              this.update()
+          }
+          else{
+              this.create()
+          }
+      },  
+      update: function (){
+          axios
+          .put('http://localhost:5000/product',{
+            id: this.productcreate._id, 
+            type: this.productcreate.type, 
+            materialNumber: this.productcreate.materialNumber,
+            serialNumber: this.productcreate.serialNumber,
+            motor: this.productcreate.motor,
+            vfd: this.productcreate.vfd,
+            lsd: this.productcreate.lsd
+          })
+          .then(res => {
+              console.log( res.data);
+              this.$router.push({name: 'productIndex'})
+              })
+          .catch(err => console.log('Update() ' + err))
+      },
+      create: function(){
+          axios
+          .post('http://localhost:5000/product',{
+            id: null,
+            type: this.productcreate.type, 
+            materialNumber: this.productcreate.materialNumber,
+            serialNumber: this.productcreate.serialNumber,
+            motor: this.productcreate.motor,
+            vfd: this.productcreate.vfd,
+            lsd: this.productcreate.lsd
+          })
+          .then(res => {
+              console.log( res.data)
+              this.$router.push({name: 'productIndex'})
+              })
+          .catch(err => console.log('Create() ' + err))
+      }  
     }
 
 }

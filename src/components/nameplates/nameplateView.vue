@@ -1,16 +1,16 @@
 <template>
     <div id="container">
         <div id="partNumber">
-            <p>{{materialNumber}}</p>
+            <p>{{nameplate.materialNumber}}</p>
         </div>
         <div id="baslik">
-            <div id="baslikLeft"><img src="./model.jpg" alt=""><p>{{model}}</p></div>
+            <div id="baslikLeft"><img src="./model.jpg" alt=""><p>{{nameplate.model}}</p></div>
             <div id="baslikMiddle">
                 <div id="smoke">
-                    <p>{{teao1}}</p>
-                    <p>{{teao2}}</p>
+                    <p>{{nameplate.teao1}}</p>
+                    <p>{{nameplate.teao2}}</p>
                 </div>
-                <p id="serialNum" >{{productionDate}}   {{serialNumber}}</p>
+                <p id="serialNum" >{{nameplate.productionDate}}   {{nameplate.serialNumber}}</p>
             </div>
             <div id="baslikRight">
                 <div id="standards">
@@ -29,13 +29,13 @@
         <div id="tablo">
             <div id="item1">
                 <div id="row1">
-                    <p>3 ~ {{frame}}-{{pole}}</p>
+                    <p>3 ~ {{nameplate.frame}}-{{nameplate.pole}}</p>
                     <p></p>
-                    <p>{{protectionClass}} INS. CL. {{insulationClass}} &Tab; DT {{deltaT}}K</p>
+                    <p>{{nameplate.protectionClass}} INS. CL. {{nameplate.insulationClass}} &Tab; DT {{nameplate.deltaT}}K</p>
                     <p></p>
-                    <p>{{duty}}</p>
-                    <p>SF {{serviceFactor}}</p>
-                    <p>{{smokeClass}}</p>
+                    <p>{{nameplate.duty}}</p>
+                    <p>SF {{nameplate.serviceFactor}}</p>
+                    <p>{{nameplate.smokeClass}}</p>
                 </div>
                 <div id="row2">
                     <div class="voltage"><p class="center">V</p></div>
@@ -51,48 +51,48 @@
                 </div>
                 <div id="row3">
                     <div class="voltage">
-                        <div v-for="(v,index) in voltage" v-bind:key="index"><p>{{v}}</p></div>
+                        <div v-for="(v,index) in nameplate.voltage" v-bind:key="index"><p>{{v}}</p></div>
                     </div>
                     <div class="frequency">
-                        <div v-for="(f,index) in frequency" v-bind:key="index"><p>{{f}}</p></div>
+                        <div v-for="(f,index) in nameplate.frequency" v-bind:key="index"><p>{{f}}</p></div>
                     </div>
                     <div class="power">
-                        <div ><p>{{power}}</p></div>
+                        <div v-for="(f,index) in nameplate.power" v-bind:key="index"><p>{{f}}</p></div>
                     </div>
                     <div class="speed">
-                        <div v-for="(row,index) in speed" v-bind:key="index"><p>{{row}}</p></div>
+                        <div v-for="(row,index) in nameplate.speed" v-bind:key="index"><p>{{row}}</p></div>
                     </div>
                     <div class="current">
-                        <div v-for="(row,index) in current" v-bind:key="index"><p>{{row}}</p></div>
+                        <div v-for="(row,index) in nameplate.current" v-bind:key="index"><p>{{row}}</p></div>
                     </div>
                     <div class="powerFactor">
-                        <div v-for="(row,index) in powerFactor" v-bind:key="index"><p>{{row}}</p></div>
+                        <div v-for="(row,index) in nameplate.powerFactor" v-bind:key="index"><p>{{row}}</p></div>
                     </div>
                     <div class="IECode">
-                            <div ><p>{{IECode}}</p></div>
+                            <div ><p>{{nameplate.IECode}}</p></div>
                     </div>
                     <div class="eff100">
-                        <div v-for="(row,index) in eff100" v-bind:key="index"><p>{{row}}</p></div>
+                        <div v-for="(row,index) in nameplate.eff100" v-bind:key="index"><p>{{row}}</p></div>
                     </div>
                     <div class="eff75">
-                        <div v-for="(row,index) in eff75" v-bind:key="index"><p>{{row}}</p></div>
+                        <div v-for="(row,index) in nameplate.eff75" v-bind:key="index"><p>{{row}}</p></div>
                     </div>
                     <div class="eff50">
-                        <div v-for="(row,index) in eff50" v-bind:key="index"><p>{{row}}</p></div>
+                        <div v-for="(row,index) in nameplate.eff50" v-bind:key="index"><p>{{row}}</p></div>
                     </div> 
                 </div>
             </div>
             <div id="item2">
                 <div id="bearings">
                     <div id="motorSymbol"><img src="./motorsimge.jpg" alt=""></div>
-                    <div id="DEbearing"><p>  {{deBearing}} ({{deGreaseQTY}}g)</p></div>
-                    <div id="NDEbearing"><p> {{ndeBearing}} ({{ndeGreaseQTY}}g)</p></div>
-                    <div id="greaseType"><p>{{grease}}</p><p>{{greasePeriod}} h</p></div>
+                    <div id="DEbearing"><p>  {{nameplate.deBearing}} ({{nameplate.deGreaseQTY}}g)</p></div>
+                    <div id="NDEbearing"><p> {{nameplate.ndeBearing}} ({{nameplate.ndeGreaseQTY}}g)</p></div>
+                    <div id="greaseType"><p>{{nameplate.grease}}</p><p>{{nameplate.greasePeriod}} h</p></div>
                 </div>
                 <div id="delta"><img src="./delta.jpg" alt=""></div>
                 <div id="star"><img src="./star.jpg" alt=""></div>
-                <div id="nema"><p>{{nema1}}</p><p>{{nema2}}</p></div>
-                <div id="altweg"><p>Alt <b>{{altitude}}</b> m.a.s.l.    <b>{{weight}}</b> kg</p> </div>
+                <div id="nema"><p>{{nameplate.nema1}}</p><p>{{nameplate.nema2}}</p></div>
+                <div id="altweg"><p>Alt <b>{{nameplate.altitude}}</b> m.a.s.l.    <b>{{nameplate.weight}}</b> kg</p> </div>
             </div>
         </div>
     </div>
@@ -101,45 +101,9 @@
 <script>
 export default {
     name: "nameplateView",
+    props: ["nameplate"],
     data: function(){
-        return {
-            model:"W22",
-            productionDate: "20MAY2019",
-            serialNumber: "1049107714",
-            materialNumber: "14888427",
-            frame: "250S/M",
-            pole: "04",
-            protectionClass: "IP55",
-            insulationClass: "H",
-            deltaT: "80",
-            duty: "S1",
-            serviceFactor: "1.00",
-            smokeClass: "S2 400 C-2h",
-            voltage:["380 / 660","400 / 690","415 / -","460 / -"],
-            frequency:["50","60"],
-            power: "55",
-            speed:["1470","1475","1475",""],
-            current:["104 / 60","100 / 57,7","97,4 / -","87,0 / -"],
-            powerFactor:["0,86","0,85","0,84","0,85"],
-            IECode:"IE2",
-            eff100:["93,5","93,1","93,1"],
-            eff75:["93,5","93,2","92,9"],
-            eff50:["93,7","93,2","92,1"],
-            deBearing: "6314-C3",
-            ndeBearing: "6314-C3",
-            deGreaseQTY: "53",
-            ndeGreaseQTY: "53",
-            grease: "KRYTOX GPL 225",
-            greasePeriod: "20000",
-            nema1: "NEMA Eff 93,7% 75HP 460V 60 Hz 1775RP",
-            nema2: "87,9 A PF 0,85 Des A Code H SF 1,15",
-            altitude: "1000",
-            weight: "384",
-            teao1: "TEAO - Totally Enclosed Air Over",
-            teao2: "S1 40C only with FAN coupled",
-
-
-        };
+        return {};
     }
     
 }
@@ -430,9 +394,9 @@ export default {
     #eac{
         margin-left: 30px;
     }
-    #caeText{
+    /* #caeText{
        
-    }
+    } */
     #baslikRight{
         display: flex;
         justify-content: space-between;

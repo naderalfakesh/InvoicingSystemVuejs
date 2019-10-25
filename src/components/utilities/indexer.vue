@@ -42,7 +42,6 @@ methods: {
         this.$router.push({name: this.nesne+'Edit' , params: { [this.nesne] : this.data[index] } })
     },
     del: function(index){
-        // console.log('http://localhost:5000/'+this.nesne+'/'+this.data[index]._id)
         axios
         .delete('http://localhost:5000/'+this.nesne+'/'+this.data[index]._id)
         .then(res => {

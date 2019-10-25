@@ -13,7 +13,7 @@ export default {
     components:{indexer},
     data: function(){
         return {
-            header: { "materialNumber" : "ürün kodü", "serialNumber" : "seri numarası","type":"Ürün tipi","info":"Genel bilgi" } ,
+            header: { "materialNumber" : "ürün kodü", "serialNumber" : "seri numarası","type":"Ürün tipi","summary":"Genel bilgi" } ,
             products: []
             ,
         };

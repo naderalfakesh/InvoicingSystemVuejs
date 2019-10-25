@@ -5,43 +5,28 @@
 </template>
 
 <script>
+/* eslint-disable */
 import indexer from '../utilities/indexer.vue'
+import axios from 'axios'
 export default {
     name: "nameplateIndex",
     components:{indexer},
     data: function(){
         return {
-            header: ["id","Ürün kodu","model","Güç","Gövde","kutup sayısı","Seri numarası"],
-            nameplates:[
-                {
-                    id: 1,
-                    materialNumber: "14888427",
-                    model:"W22",
-                    voltage: "400V",
-                    frame: "250S/M",
-                    pole: "04P",
-                    serialNumber: "1049107714",
-                },
-                {
-                    id: 2,
-                    materialNumber: "14888427",
-                    model:"W22",
-                    voltage: "400V",
-                    frame: "250S/M",
-                    pole: "04P",
-                    serialNumber: "1049107714",
-                },
-                {
-                    id: 3,
-                    materialNumber: "14888427",
-                    model:"W22",
-                    voltage: "400V",
-                    frame: "250S/M",
-                    pole: "04P",
-                    serialNumber: "1049107714",
-                },
-            ]
+            header: {"materialNumber":"Ürün kodu","model":"model","powers":"Güç","frame":"Gövde","pole":"kutup sayısı","serialNumber":"Seri numarası"},
+            nameplates:[]
         };
+    },
+    created: function(){
+        axios
+        .get('http://localhost:5000/nameplate')
+        .then(res => {
+            this.nameplates = res.data
+            for(let nameplate of this.nameplates){
+                nameplate['powers']=nameplate.power[0]+"kW"
+            }
+            })
+        .catch(err => console.log(err))
     },
     methods:{},
 }

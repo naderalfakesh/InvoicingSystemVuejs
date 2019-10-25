@@ -6,16 +6,16 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <class class="col"><p>Müşteri: <strong>{{company}}</strong></p></class>
-                    <class class="col"><p>model: <strong>{{model}}</strong></p></class>
-                    <class class="col"><p>Sipariş tarihi: <strong>{{orderDate}}</strong></p></class>
-                    <class class="col"><p>Statüs: <strong>{{status}}</strong></p></class>
+                    <div class="col"><p>Müşteri: <strong>{{lsd.company.name}}</strong></p></div>
+                    <div class="col"><p>model: <strong>{{lsd.model}}</strong></p></div>
+                    <div class="col"><p>Sipariş tarihi: <strong>{{lsd.orderDate}}</strong></p></div>
+                    <div class="col"><p>Statüs: <strong>{{lsd.status}}</strong></p></div>
                     <div class="w-100"></div>
-                    <class class="col"><p>İstenilen teslim tarihi: <strong>{{wantedDeliveryDate}}</strong></p></class>
-                    <class class="col"><p>Gerçek teslim tarihi: <strong>{{deliveryDate}}</strong></p></class>
-                    <class class="col"><p>Satış fiyatı: <strong>{{salesPrice}}</strong></p></class>
+                    <div class="col"><p>İstenilen teslim tarihi: <strong>{{lsd.wantedDeliveryDate}}</strong></p></div>
+                    <div class="col"><p>Gerçek teslim tarihi: <strong>{{lsd.deliveryDate}}</strong></p></div>
+                    <div class="col"><p>Satış fiyatı: <strong>{{lsd.salesPrice}}</strong></p></div>
                     <div class="w-100"></div>
-                    <class class="col"><p>Ticari koşulları: <strong>{{commercialConditions}}</strong></p></class>
+                    <div class="col"><p>Ticari koşulları: <strong>{{lsd.commercialConditions}}</strong></p></div>
                 </div>
             </div>
         </div>
@@ -26,17 +26,17 @@
             </div>
             <div class="card-body">
                 <div class="row ">
-                    <class class="col"><p>Marka: <strong>{{motorInfo.brand}}</strong></p></class>
-                    <class class="col"><p>Güç: <strong>{{motorInfo.power}}</strong></p></class>
+                    <div class="col"><p>Marka: <strong>{{lsd.motorInfo.brand}}</strong></p></div>
+                    <div class="col"><p>Güç: <strong>{{lsd.motorInfo.power}}</strong></p></div>
                     <div class="w-100"></div>
-                    <class class="col"><p>Kutup sayısı: <strong>{{motorInfo.poles}}</strong></p></class>
-                    <class class="col"><p>Fırça kaldırma opsyonu: <strong>{{motorInfo.burshLifitng}}</strong></p></class>
+                    <div class="col"><p>Kutup sayısı: <strong>{{lsd.motorInfo.poles}}</strong></p></div>
+                    <div class="col"><p>Fırça kaldırma opsyonu: <strong>{{lsd.motorInfo.burshLifitng}}</strong></p></div>
                     <div class="w-100"></div>
-                    <class class="col"><p>Gerilim stator: <strong>{{motorInfo.statorVoltage}}</strong></p></class>
-                    <class class="col"><p>Akım stator: <strong>{{motorInfo.statorCurrent}}</strong></p></class>
+                    <div class="col"><p>Gerilim stator: <strong>{{lsd.motorInfo.statorVoltage}}</strong></p></div>
+                    <div class="col"><p>Akım stator: <strong>{{lsd.motorInfo.statorCurrent}}</strong></p></div>
                     <div class="w-100"></div>
-                    <class class="col"><p>Gerilim rotor: <strong>{{motorInfo.rotorVoltage}}</strong></p></class>
-                    <class class="col"><p>Akım rotor <strong>{{motorInfo.rotorCurrent}}</strong></p></class>
+                    <div class="col"><p>Gerilim rotor: <strong>{{lsd.motorInfo.rotorVoltage}}</strong></p></div>
+                    <div class="col"><p>Akım rotor <strong>{{lsd.motorInfo.rotorCurrent}}</strong></p></div>
                 </div>
             </div>
         </div>
@@ -47,15 +47,15 @@
             </div>
             <div class="card-body">
                 <div class="row ">
-                    <class class="col"><p>Model: <strong>{{model}}</strong></p></class>
-                    <class class="col"><p>Seri numarası: <strong>{{lsdInfo.serialNumber}}</strong></p></class>
-                    <class class="col"><p>Ürün kodu: <strong>{{lsdInfo.productionDate}}</strong></p></class>
+                    <div class="col"><p>Model: <strong>{{lsd.model}}</strong></p></div>
+                    <div class="col"><p>Seri numarası: <strong>{{lsd.lsdInfo.serialNumber}}</strong></p></div>
+                    <div class="col"><p>Ürün kodu: <strong>{{lsd.lsdInfo.productionDate}}</strong></p></div>
                     <div class="w-100"></div>
-                    <class class="col"><p>Elektrod motoru: <strong>{{lsdInfo.motor}}</strong></p></class>
-                    <class class="col"><p>Sürücü: <strong>{{lsdInfo.vfd}}</strong></p></class>
-                    <class class="col"><p>Redüktör: <strong>{{lsdInfo.gearbox}}</strong></p></class>
+                    <div class="col"><p>Elektrod motoru: <strong>{{lsd.lsdInfo.motor}}</strong></p></div>
+                    <div class="col"><p>Sürücü: <strong>{{lsd.lsdInfo.vfd}}</strong></p></div>
+                    <div class="col"><p>Redüktör: <strong>{{lsd.lsdInfo.gearbox}}</strong></p></div>
                     <div class="w-100"></div>
-                    <class class="col"><p>Kontaktor: <strong>{{lsdInfo.contactor}}</strong></p></class>
+                    <div class="col"><p>Kontaktor: <strong>{{lsd.lsdInfo.contactor}}</strong></p></div>
                 </div>
             </div>
         </div>
@@ -66,10 +66,10 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <class class="col"><p>Test yetkilisi: <strong>{{testInfo.tester}}</strong></p></class>
-                    <class class="col"><p>Test tarihi: <strong>{{testInfo.testDate}}</strong></p></class>
+                    <div class="col"><p>Test yetkilisi: <strong>{{lsd.testInfo.tester}}</strong></p></div>
+                    <div class="col"><p>Test tarihi: <strong>{{lsd.testInfo.testDate}}</strong></p></div>
                     <div class="w-100"></div>
-                    <class class="col"><p>Test sonucu: <strong>{{testInfo.testResult}}</strong></p></class>
+                    <div class="col"><p>Test sonucu: <strong>{{lsd.testInfo.testResult}}</strong></p></div>
                 </div>
             </div>
         </div>
@@ -80,14 +80,14 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <class class="col"><p>Devreya alan: <strong>{{commissioningInfo.commissioner}}</strong></p></class>
-                    <class class="col"><p>Devrey alma tarihi: <strong>{{commissioningInfo.commissionDate}}</strong></p></class>
-                    <class class="col"><p>İletkenlik: <strong>{{commissioningInfo.conductivity}}</strong></p></class>
+                    <div class="col"><p>Devreya alan: <strong>{{lsd.commissioningInfo.commissioner}}</strong></p></div>
+                    <div class="col"><p>Devrey alma tarihi: <strong>{{lsd.commissioningInfo.commissionDate}}</strong></p></div>
+                    <div class="col"><p>İletkenlik: <strong>{{lsd.commissioningInfo.conductivity}}</strong></p></div>
                     <div class="w-100"></div>
-                    <class class="col"><p>Son kullanıcı: <strong>{{commissioningInfo.enduser}}</strong></p></class>
-                    <class class="col"><p>Adres: <strong>{{commissioningInfo.address}}</strong></p></class>
+                    <div class="col"><p>Son kullanıcı: <strong>{{lsd.commissioningInfo.enduser}}</strong></p></div>
+                    <div class="col"><p>Adres: <strong>{{lsd.commissioningInfo.address}}</strong></p></div>
                     <div class="w-100"></div>
-                    <class class="col"><p>Notlar: <strong>{{commissioningInfo.notes}}</strong></p></class>
+                    <div class="col"><p>Notlar: <strong>{{lsd.commissioningInfo.notes}}</strong></p></div>
                 </div>
             </div>
         </div>
@@ -98,49 +98,9 @@
 <script>
 export default {
     name: "lsdView",
+    props: ["lsd"],
     data: function(){
-       return {
-            id: 1,
-            company: "Ersel Ağır makina A.Ş.",
-            orderDate: "02-01-1991", 
-            salesPrice: "500 Euro", 
-            commercialConditions: "3 days bedava",
-            wantedDeliveryDate: "02-02-1991", 
-            model: "LSDEmini",
-            status: "delivered",
-            motorInfo: {
-                brand: "ABB",
-                power: "2800",
-                poles:  "6",
-                statorVoltage: "6600V",
-                statorCurrent: "38A",
-                rotorVoltage: "1250V",
-                rotorCurrent: "410A",
-                burshLifitng: "Mevcut"
-            },
-            lsdInfo: {
-                motor: "0.55kw deg",
-                vfd:    "CFW10 2.6A",
-                gearbox: "DSV",
-                contactor: "HOMA 1600A",
-                serialNumber: "19001",
-                productionDate: "02-01-1991",
-            },
-            testInfo:{
-                tester: "Nader Alfakesh",
-                testDate: "02-01-1991",
-                testResult: "Test sağlıklı geçmiştir"
-            },
-            deliveryDate: "02-01-1991",
-            commissioningInfo: {
-                commissioner: "Kadir Özböler" ,
-                enduser: "Maden yapı",
-                address: "Fas kasablanka",
-                commissionDate: "02-01-1991",
-                conductivity: "10ms/cm 40C",
-                notes: "pompa bozuktu , değiştirildi"
-            }
-       };
+       return {};
     }
 }
 </script>

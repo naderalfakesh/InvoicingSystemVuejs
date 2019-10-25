@@ -12,7 +12,7 @@
           <div class="row">
             <div class="col-8">
               <h5>Motor bilgileri:</h5>
-              <p>{{invoice.mainProduct}} </p>
+              <p>{{invoice.product.summary}} </p>
             </div>
             <div class="col-4">
               <h5>Date:</h5>
@@ -35,12 +35,12 @@
             <div class="col-8">
               <h5>Firma adresi:</h5>
               <p>
-                {{invoice.company.address}}
+                {{invoice.deliveryAddress}}
               </p>
             </div>
             <div class="col-4">
               <h5>Kontak kişi :</h5>
-              <p>{{invoice.company.contact}}</p>
+              <p>{{invoice.contact.name}}</p>
             </div>
           </div>
         </div>

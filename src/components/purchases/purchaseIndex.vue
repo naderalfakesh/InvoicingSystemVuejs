@@ -1,60 +1,39 @@
 <template>
   <div>
-      <indexer :data="companies" :header="header" :nesne="'purchase'" ></indexer>
+    <indexer :data="purchases" :header="header" :nesne="'purchase'" ></indexer>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 import indexer from '../utilities/indexer.vue'
+import axios from 'axios'
 export default {
+    name: 'purchaseIndex',
     components:{indexer},
-    data: function(){
-        return {
-            header: ["id","name","type","email","website","phone","fax","taxAdmin","taxNumber","address"],
-            companies:[
-                {
-                    id: 1,
-                    name: "name 1",
-                    type: "type 1",
-                    email: "email 1",
-                    website: "website 1",
-                    phone: "phone 1",
-                    fax: "fax 1",
-                    taxAdmin:"tax admin 1",
-                    taxNumber:"tax number 1",
-                    address:"address 1",
-                },
-                {
-                    id: 2,
-                    name: "name 2",
-                    type: "type 2",
-                    email: "email 2",
-                    website: "website 2",
-                    phone: "phone 2",
-                    fax: "fax 2",
-                    taxAdmin:"tax admin 2",
-                    taxNumber:"tax number 2",
-                    address:"address 2",
-                },
-                {
-                    id: 3,
-                    name: "name 3",
-                    type: "type 3",
-                    email: "email 3",
-                    website: "website 3",
-                    phone: "phone 3",
-                    fax: "fax 3",
-                    taxAdmin:"tax admin 3",
-                    taxNumber:"tax number 3",
-                    address:"address 3",
-                }
-            ]
-        };
-    },
+    methods:{},
+  data: function() {
+    return {
+      header: {"referance":"Referans", "date":"Tarih","companyname":"Firma","contactname":"Kontak","productsummary":"Ürün açıklaması","status":"Statüs"},
+      purchases: []
+    };
+  },
+  created: function(){
+    axios
+    .get('http://localhost:5000/invoice/purchase')
+    .then(res => {
+        this.purchases = res.data
+        for(var i in this.purchases){
+          this.purchases[i].companyname = this.purchases[i].company.name
+          this.purchases[i].contactname = this.purchases[i].contact.name
+          this.purchases[i].productsummary = this.purchases[i].product.summary
+        }
+        })
+    .catch(err => console.log(err))
+  },
 
-}
+};
 </script>
 
-<style>
-
+<style scoped>
 </style>

@@ -5,44 +5,30 @@
 </template>
 
 <script>
+/* eslint-disable */
 import indexer from '../utilities/indexer.vue'
+import axios from 'axios'
 export default {
     name: "lsdIndex",
     components:{indexer},
     data: function(){
         return {
-            header: ["id","Sipariş tarihi","Müşteri","Model","Motor markası","İstenen tarihi","Statüs"],
-            lsds:[
-                {
-                id: 1,
-                orderDate: "02-01-1991", 
-                company: "Ersel Ağır makia san. tic. aş.",
-                model: "LSDEmini 19010",
-                motorBrand: "ABB",
-                wantedDeliveryDate: "02-02-1991", 
-                status: "Teslim edilmiştir",
-                },
-                {
-                id: 2,
-                orderDate: "02-01-1991", 
-                company: "Ersel",
-                model: "LSDEmini 19011",
-                motorBrand: "ABB",
-                wantedDeliveryDate: "02-02-1991", 
-                status: "Teslim edilmiştir",
-                },
-                {
-                id: 3,
-                orderDate: "02-01-1991", 
-                company: "Ersel",
-                model: "LSDEmini 19012",
-                motorBrand: "ABB",
-                wantedDeliveryDate: "02-02-1991", 
-                status: "Teslim edilmiştir",
-                },
-        ],
+            header: {"orderDate":"Sipariş tarihi","customer":"Müşteri","model":"Model","motorBrand":"Motor markası","wantedDeliveryDate":"İstenen tarihi","status":"Statüs"},
+            lsds:[],
 
         };
+    },
+    created: function(){
+        axios
+        .get('http://localhost:5000/lsd')
+        .then(res => {
+            this.lsds = res.data
+            for(let lsd of this.lsds){
+                lsd['customer']=lsd.company.name
+                lsd['motorBrand']=lsd.motorInfo.brand
+            }
+            })
+        .catch(err => console.log(err))
     },
     methods:{},
 

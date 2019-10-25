@@ -7,55 +7,34 @@
 <script>
 /* eslint-disable */
 import indexer from '../utilities/indexer.vue'
+import axios from 'axios'
 export default {
     name: "rewindIndex",
     components:{indexer},
     data: function(){
         return{
-            header: ["id","Müşteri","Güç","Kutup","Gerilim","Frekans","seri numarası","ürün kodu"],
-            rewinds: [
-                {
-                    id: 1,
-                    customer: "Dalgakıran",
-                    power: "55kw",
-                    pole:  "06P",
-                    voltage: "400V",
-                    frequency: "50Hz",
-                    serialNumber: "0987654321",
-                    materialNumber: "1234567890",
-                },
-                {
-                    id: 2,
-                    customer: "Dalgakıran",
-                    power: "55kw",
-                    pole:  "06P",
-                    voltage: "400V",
-                    frequency: "50Hz",
-                    serialNumber: "0987654321",
-                    materialNumber: "1234567890",
-                },
-                {
-                    id: 3,
-                    customer: "Dalgakıran",
-                    power: "55kw",
-                    pole:  "06P",
-                    voltage: "400V",
-                    frequency: "50Hz",
-                    serialNumber: "0987654321",
-                    materialNumber: "1234567890",
-                }
-            ]
+            header: {"customer":"Müşteri","power":"Güç","pole":"Kutup","voltage":"Gerilim","frequency":"Frekans","serialNumber":"seri numarası","materialNumber":"ürün kodu"},
+            rewinds: []
         }
     },
     methods:{},
-    mounted: function () {
-        console.log('nader')
-        fetch("https://f6c6bf7e-5f22-4ba3-b781-8bc7cf823b21.mock.pstmn.io/companies").then((resp) => resp.json()) // Transform the data into json
-         .then(function(data) {
-            console.log(data)
-            })
-            
-    }
+    created: function(){
+        axios
+        .get('http://localhost:5000/rewind')
+        .then(res => {
+            this.rewinds = res.data
+            for(let i of this.rewinds){
+                i['customer']=i.company.name
+                i['power']=i.product.motor.power
+                i['pole']=i.product.motor.pole
+                i['voltage']=i.product.motor.voltage
+                i['frequency']=i.product.motor.frequency
+                i['serialNumber']=i.product.serialNumber
+                i['materialNumber']=i.product.materialNumber
+            }
+        })
+        .catch(err => console.log(err))
+    },
 }
 </script>
 

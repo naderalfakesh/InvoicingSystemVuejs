@@ -1,5 +1,15 @@
 <template>
   <div>
+    <div>
+      <select v-model="rewindCreate.product" class="form-control col-6" @change="copyMotorValues()">
+        <option >choose</option>
+        <option v-for="(product,index) in products" :key="index" :value="product">{{product.summary}}</option>
+      </select>
+      <select v-model="rewindCreate.company" class="form-control col-6" >
+        <option >choose</option>
+        <option v-for="(company,index) in companies" :key="index" :value="company">{{company.name}}</option>
+      </select>
+    </div>
     <div class="row">
       <table class="table table-sm">
         <thead>
@@ -8,24 +18,21 @@
           <th scope="col">Frekans</th>
           <th scope="col">Akım</th>
           <th scope="col">Spir sayısı</th>
-          <th scope="col">tel tplm kesidi</th>
         </thead>
         <tbody>
           <tr>
             <th scope="row">Asıl</th>
-            <td><input v-model="actualVoltage" type="text" class="form-control" /></td>
-            <td><input v-model="actualFrequency" type="text" class="form-control" /></td>
-            <td><input v-model="actualCurrent" type="text" class="form-control" /></td>
-            <td><input v-model="actualNumberOfTurns" type="text" class="form-control" /></td>
-            <td>{{totalsectioncalc(0)}}</td>
+            <td><input v-model="rewindCreate.actualVoltage" type="text" class="form-control" /></td>
+            <td><input v-model="rewindCreate.actualFrequency" type="text" class="form-control" /></td>
+            <td><input v-model="rewindCreate.actualCurrent" type="text" class="form-control" /></td>
+            <td><input v-model="rewindCreate.actualNumberOfTurns" type="text" class="form-control" /></td>
           </tr>
           <tr>
             <th scope="row">Sarılacak</th>
-            <td><input v-model="newVoltage" type="text" class="form-control" /></td>
-            <td><input v-model="newFrequency" type="text" class="form-control" /></td>
-            <td>{{(actualVoltage/newVoltage)*actualCurrent}}</td>
-            <td>{{Math.ceil(actualNumberOfTurns * newVoltage/actualVoltage)}}</td>
-            <td>{{newWireSection}}</td>
+            <td><input v-model="rewindCreate.newVoltage" type="text" class="form-control" /></td>
+            <td><input v-model="rewindCreate.newFrequency" type="text" class="form-control" /></td>
+            <td>{{calculatedCurrent}}</td>
+            <td>{{calculatedTurns}}</td>
           </tr>
         </tbody>
       </table>
@@ -45,52 +52,73 @@
 
     <div class="row mt-3">
       <div class="col">
-        <input v-model="actualWire[0].quantity" type="number" step="1" class="form-control" />
+        <input v-model="rewindCreate.actualWire[0].quantity" type="number" step="1" class="form-control" />
       </div>
       <div class="col">
-        <input v-model="actualWire[0].guage" type="number" step="0.01" class="form-control" />
+        <input v-model="rewindCreate.actualWire[0].guage" type="number" step="0.05" class="form-control" />
       </div>
       <div class="col">
-        <p>{{sectioncalc(actualWire[0].guage)}} mm</p>
+        <p>{{sectioncalc(rewindCreate.actualWire[0].guage)}} mm</p>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <input v-model="actualWire[1].quantity" type="number" class="form-control" />
+        <input v-model="rewindCreate.actualWire[1].quantity" type="number" step="1" class="form-control" />
       </div>
       <div class="col">
-        <input v-model="actualWire[1].guage" type="number" step="0.01" class="form-control" />
+        <input v-model="rewindCreate.actualWire[1].guage" type="number" step="0.05" class="form-control" />
       </div>
       <div class="col">
-        <p>{{sectioncalc(actualWire[1].guage)}} mm</p>
+        <p>{{sectioncalc(rewindCreate.actualWire[1].guage)}} mm</p>
       </div>
     </div>
 
 
     <div class="row">
       <div class="col">
-        <input v-model="newWire[0].quantity" type="text" class="form-control" />
+        <input v-model="rewindCreate.newWire[0].quantity" type="number" step="1" class="form-control" />
       </div>
       <div class="col">
-        <input v-model="newWire[0].guage" type="text" class="form-control" />
+        <input v-model="rewindCreate.newWire[0].guage" type="number" step="0.05" class="form-control" />
       </div>
       <div class="col">
-        <p>{{sectioncalc(newWire[0].guage)}} mm</p>
-      </div>
-      <div class="col">
-        <p>Hesaplanan kesit</p>
+        <p>{{sectioncalc(rewindCreate.newWire[0].guage)}} mm</p>
       </div>
 
     </div>
     <div class="row">
       <div class="col">
-        <input v-model="newWire[1].quantity" type="text" class="form-control" />
+        <input v-model="rewindCreate.newWire[1].quantity" type="number" step="1" class="form-control" />
       </div>
       <div class="col">
-        <input v-model="newWire[1].guage" type="text" class="form-control" />
+        <input v-model="rewindCreate.newWire[1].guage" type="number" step="0.05" class="form-control" />
       </div>
       <div class="col">
-        <p>{{sectioncalc(newWire[1].guage)}} mm</p>
+        <p>{{sectioncalc(rewindCreate.newWire[1].guage)}} mm</p>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col">
+        <p>Mevcut toplam kesidi: </p>
+      </div>
+      <div class="col text-white bg-dark">
+        <p>{{totalsectioncalc(0)}}</p>
+      </div>
+    </div>
+    
+    <div class="row mt-3">
+      <div class="col">
+        <p>Yeni gerekli toplam kesidi: </p>
+      </div>
+      <div class="col text-white bg-info">
+        <p >{{newWireSection}}</p>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col">
+        <p>Yeni  toplam kesidi: </p>
       </div>
       <div class="col text-white" v-bind:class=" wireSectionValid() ? 'bg-success' : 'bg-danger' ">
         <p >{{totalsectioncalc(1)}}</p>
@@ -128,106 +156,125 @@
         <div class="col">
         <div class="card bg-light my-3 text-center">
           <div class="card-body ">
-            <button class="btn btn-primary ">Kaydet</button>
+            <button @click="save()" class="btn btn-primary">Kaydet</button>
           </div>
         </div>
         </div>
       </div>
-          
-        
 
   </div>
 </template>
 
 <script>
+/* eslint-disable */
+import axios from 'axios'
 export default {
   name: "rewindCreate",
+  props: ["rewind"],
+  created: function(){
+    if (this.rewind != null) {
+      this.rewindCreate = this.rewind;
+    }
+    axios
+    .get('http://localhost:5000/product/motors')
+    .then(res => {
+      this.products = res.data
+    })
+    .catch(err => console.log(err))
+    axios
+    .get('http://localhost:5000/company')
+    .then(res => {
+      this.companies = res.data
+    })
+    .catch(err => console.log(err))
+
+  },
   data: function() {
     return {
-      customer: "Dalgakıran",
-      serialNumber: "0987654321",
-      materialNumber: "1234567890",
-      productionDate: "01-01-2017",
-      motor: {
-        brand: "WEG",
-        series: "W22",
-        type: "Standard",
-        power: 55,
-        speed: 1000,
-        voltage: 400,
-        frequency: 400,
-        effeciency: "IE2",
-        frame: 225,
-        pole: 6
+      rewindCreate: {
+        company: "",
+        product:{motor:{}},
+        serialNumber: "",
+        materialNumber: "",
+        productionDate: "",
+        actualWire: [
+          {
+            quantity: 0,
+            guage: 0,
+            section: 0
+          },
+          {
+            quantity: 0,
+            guage: 0,
+            section: 0
+          }
+        ],
+        actualVoltage: 0,
+        actualCurrent: 0,
+        actualFrequency: 0,
+        actualNumberOfTurns: 0,
+        actualWireSection: 0,
+        newVoltage: 0,
+        newCurrent: 0,
+        newFrequency: 0,
+        newNumberOfTurns: 0,
+        newWire: [
+          {
+            quantity: 0,
+            guage: 0,
+            section: 0
+          },
+          {
+            quantity: 0,
+            guage: 0,
+            section: 0
+          }
+        ],
       },
-      actualWire: [
-        {
-          quantity: 2,
-          guage: 1.18,
-          section: 0
-        },
-        {
-          quantity: 3,
-          guage: 1,
-          section: 0
-        }
-      ],
-      actualVoltage: 400,
-      actualCurrent: 1,
-      actualFrequency: 50,
-      actualNumberOfTurns: 15,
-      actualWireSection: 15,
-      newVoltage: 400,
-      newCurrent: 1,
-      newFrequency: 84,
-      newNumberOfTurns: 15,
-      
-      newWire: [
-        {
-          quantity: 2,
-          guage: 0.5,
-          section: 0
-        },
-        {
-          quantity: 2,
-          guage: 0.5,
-          section: 0
-        }
-      ],
       wires:[0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.90,0.95,1,1.05,1.1,1.15,1.2,1.25,1.3,1.35,1.4],
       result: [],
-      selectedradio: false
-      
-
-    
-    
-    
+      selectedradio: false,
+      products: [],
+      companies: [],
     };
   },
   methods:{
+    copyMotorValues: function(){
+      this.rewindCreate.actualVoltage = this.rewindCreate.product.motor.voltage
+      this.rewindCreate.actualFrequency = this.rewindCreate.product.motor.frequency
+    },
       chooseWire : function(index){
         if(this.result[index].length > 1){
-          this.newWire = this.result[index].concat();
+          this.rewindCreate.newWire = this.result[index].concat();
         }
         else {
-          Object.assign(this.newWire[0],this.result[index][0]);
-          Object.assign(this.newWire[1],{ quantity: 0,guage: 0,section: 0});
+          Object.assign(this.rewindCreate.newWire[0],this.result[index][0]);
+          Object.assign(this.rewindCreate.newWire[1],{ quantity: 0,guage: 0,section: 0});
         }
       },
+      // calculating section of a wire
       sectioncalc: function(diameter){
-          let result = Math.PI * Math.pow( diameter/2 , 2) ;
-          return result.toFixed(3);
+        if(diameter){
+          let x = Math.PI * Math.pow( diameter/2 , 2) ;
+          return x.toFixed(3);
+        }
+        return 0;
+          
       },
+      // calculating total section of wire combination param [0 actual wire] [1 new wire]
       totalsectioncalc: function(actual){
-          let result = 0;
-          if(actual==0){
-              result= this.actualWire[0].quantity*this.sectioncalc(this.actualWire[0].guage) + this.actualWire[1].quantity*this.sectioncalc(this.actualWire[1].guage)
-          }
-          else {
-              result= this.newWire[0].quantity*this.sectioncalc(this.newWire[0].guage) + this.newWire[1].quantity*this.sectioncalc(this.newWire[1].guage)
-          }
-          result =  result.toFixed(4);
-          return result;
+        let x = 0;
+        if(actual==0 && this.rewindCreate.actualWire && this.rewindCreate.newWire ){
+          x = this.rewindCreate.actualWire[0].quantity*this.sectioncalc(this.rewindCreate.actualWire[0].guage) + this.rewindCreate.actualWire[1].quantity*this.sectioncalc(this.rewindCreate.actualWire[1].guage)
+        }
+        else if(actual==1 && this.rewindCreate.actualWire && this.rewindCreate.newWire) {
+          x = this.rewindCreate.newWire[0].quantity*this.sectioncalc(this.rewindCreate.newWire[0].guage) + this.rewindCreate.newWire[1].quantity*this.sectioncalc(this.rewindCreate.newWire[1].guage)
+        }
+        else {
+          x= 0
+        }
+        x =  x.toFixed(4);
+        return x;
       },
       wireSectionValid: function(){
         if(Math.abs(this.totalsectioncalc(1) / this.newWireSection -1 ) <= 0.015 ){
@@ -242,7 +289,7 @@ export default {
         let avr,biggertwo,smallertwo,fullarr,quantity;
         let result = Array();
         //calculate average of two used wires
-        avr = (Number(this.actualWire[0].guage) + Number(this.actualWire[1].guage)) / 2;
+        avr = (Number(this.rewindCreate.actualWire[0].guage) + Number(this.rewindCreate.actualWire[1].guage)) / 2;
         //getting the bigger two wire guages
         biggertwo = this.wires.filter(function(wire) {
           return wire > avr; 
@@ -290,17 +337,74 @@ export default {
         }
         this.selectedradio= false;
         this.result=result;
-
-      }
-  },
-  computed:{
-    newWireSection: function(){
-      let result = this.totalsectioncalc(0) * this.actualVoltage/this.newVoltage;
-      result = result.toFixed(4)
-     return result;
+      },
+      save: function (){
+        if(this.rewind != null){
+            this.update()
+        }
+        else{
+            this.create()
+        }
+    },  
+    update: function (){
+      this.rewindCreate.newNumberOfTurns = this.calculatedTurns
+      this.rewindCreate.newCurrent = this.calculatedCurrent
+        axios
+        .put('http://localhost:5000/rewind',{
+          rewind : this.rewindCreate
+        })
+        .then(res => {
+            console.log( res.data);
+            this.$router.push({name: 'rewindIndex'})
+            })
+        .catch(err => console.log('Update() ' + err))
+    },
+    create: function(){
+      this.rewindCreate.newNumberOfTurns = this.calculatedTurns
+      this.rewindCreate.newCurrent = this.calculatedCurrent
+        axios
+        .post('http://localhost:5000/rewind',{
+          rewind : this.rewindCreate
+        })
+        .then(res => {
+            console.log( res.data)
+            this.$router.push({name: 'rewindIndex'})
+            })
+        .catch(err => console.log('Create() ' + err))
     },
     
-
+  },
+  computed:{
+    // calculating the new section for the new rewind data
+    newWireSection: function(){
+      if(this.rewindCreate.actualVoltage > 0 && this.rewindCreate.newVoltage > 0){
+        let x = this.totalsectioncalc(0) * this.rewindCreate.actualVoltage/this.rewindCreate.newVoltage;
+      x = x.toFixed(4)
+     return x;
+      }
+      else {
+        let x=0
+        return x.toFixed(4)
+      }
+    },
+    //Automatic calculation for the new current.
+    calculatedCurrent: function(){
+      if(this.rewindCreate.actualCurrent > 0 && this.rewindCreate.actualVoltage > 0 && this.rewindCreate.newVoltage > 0 ){
+        let x= this.rewindCreate.actualCurrent * this.rewindCreate.actualVoltage / this.rewindCreate.newVoltage
+        return x.toFixed(2)
+      }
+      else
+      return 0
+    },
+    //Automatic calculation for the new number of turns.
+    calculatedTurns: function(){
+      if(this.rewindCreate.actualNumberOfTurns > 0 && this.rewindCreate.actualVoltage > 0 && this.rewindCreate.newVoltage > 0 ){
+        let x= this.rewindCreate.actualNumberOfTurns * this.rewindCreate.newVoltage / this.rewindCreate.actualVoltage
+        return Math.ceil(x)
+      }
+      else
+      return 0
+    },
   },
 
 };

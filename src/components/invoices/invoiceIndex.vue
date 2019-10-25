@@ -5,46 +5,33 @@
 </template>
 
 <script>
+/* eslint-disable */
 import indexer from '../utilities/indexer.vue'
+import axios from 'axios'
 export default {
     name: 'invoiceIndex',
     components:{indexer},
     methods:{},
   data: function() {
     return {
-      header: ["id","Referans","Tarih","Firma","Kontak","Ürün açıklaması","Statüs"],
-      invoices: [
-        {
-          id:1,
-          referance: "DAL20190101",
-          date: "26/05/2019",
-          companyName: "DALGAKIRAN MAKİNE SANAYİ VE TİCARET ANONİM ŞİRKETİ.",
-          companyContact: "Fatih kömürcü",
-          mainProduct: "250kw 315SM-04 84hz 1029055831",
-          status: "issued",
-        },
-        {
-          id:2,
-          referance: "DAL20190101",
-          date: "26/05/2019",
-          companyName: "DALGAKIRAN MAKİNE SANAYİ VE TİCARET ANONİM ŞİRKETİ.",
-          companyContact: "Fatih kömürcü",
-          mainProduct: "250kw 315SM-04 84hz 1029055831",
-          status: "issued",
-        },
-        {
-          id:3,
-          referance: "DAL20190101",
-          date: "26/05/2019",
-          companyName: "DALGAKIRAN MAKİNE SANAYİ VE TİCARET ANONİM ŞİRKETİ.",
-          companyContact: "Fatih kömürcü",
-          mainProduct: "250kw 315SM-04 84hz 1029055831",
-          status: "issued",
-        },
-        
-      ]
+      header: {"referance":"Referans", "date":"Tarih","companyname":"Firma","contactname":"Kontak","productsummary":"Ürün açıklaması","status":"Statüs"},
+      invoices: []
     };
-  }
+  },
+  created: function(){
+    axios
+    .get('http://localhost:5000/invoice')
+    .then(res => {
+        this.invoices = res.data
+        for(var i in this.invoices){
+          this.invoices[i].companyname = this.invoices[i].company.name
+          this.invoices[i].contactname = this.invoices[i].contact.name
+          this.invoices[i].productsummary = this.invoices[i].product.summary
+        }
+        })
+    .catch(err => console.log(err))
+  },
+
 };
 </script>
 

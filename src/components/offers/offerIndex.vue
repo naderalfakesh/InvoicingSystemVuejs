@@ -1,52 +1,39 @@
 <template>
-    <div>
-      <indexer :data="offers" :header="header" :nesne="'offer'"></indexer>
-    </div>
+  <div>
+    <indexer :data="offers" :header="header" :nesne="'offer'" ></indexer>
+  </div>
 </template>
 
 <script>
+/* eslint-disable */
 import indexer from '../utilities/indexer.vue'
+import axios from 'axios'
 export default {
-    name: "offerIndex",
+    name: 'offerIndex',
     components:{indexer},
-    data: function(){
-        return {
-            header: ["id","Referans","Tarih","Firma","Kontak","Ürün açıklaması","Statüs"],
-            offers:[
-                {
-                    id: 1,
-                    referance: "DAL20190101",
-                    date: "26/05/2019",
-                    companyName: "DALGAKIRAN MAKİNE SANAYİ VE TİCARET ANONİM ŞİRKETİ.",
-                    companyContact: "Fatih kömürcü",
-                    mainProduct: "250kw 315SM-04 84hz 1029055831",
-                    status: "issued"
-                },
-                {
-                    id: 2,
-                    referance: "DAL20190101",
-                    date: "26/05/2019",
-                    companyName: "DALGAKIRAN MAKİNE SANAYİ VE TİCARET ANONİM ŞİRKETİ.",
-                    companyContact: "Fatih kömürcü",
-                    mainProduct: "250kw 315SM-04 84hz 1029055831",
-                    status: "issued"
-                },
-                {
-                    id: 3,
-                    referance: "DAL20190101",
-                    date: "26/05/2019",
-                    companyName: "DALGAKIRAN MAKİNE SANAYİ VE TİCARET ANONİM ŞİRKETİ.",
-                    companyContact: "Fatih kömürcü",
-                    mainProduct: "250kw 315SM-04 84hz 1029055831",
-                    status: "issued"
-                },
-            ]
-        };
-    },
     methods:{},
-}
+  data: function() {
+    return {
+      header: {"referance":"Referans", "date":"Tarih","companyname":"Firma","contactname":"Kontak","productsummary":"Ürün açıklaması","status":"Statüs"},
+      offers: []
+    };
+  },
+  created: function(){
+    axios
+    .get('http://localhost:5000/invoice/offer')
+    .then(res => {
+        this.offers = res.data
+        for(var i in this.offers){
+          this.offers[i].companyname = this.offers[i].company.name
+          this.offers[i].contactname = this.offers[i].contact.name
+          this.offers[i].productsummary = this.offers[i].product.summary
+        }
+        })
+    .catch(err => console.log(err))
+  },
+
+};
 </script>
 
-<style>
-
+<style scoped>
 </style>
