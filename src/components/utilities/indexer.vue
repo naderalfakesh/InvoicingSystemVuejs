@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button @click="create()" class="btn btn-dark btn-sm" >Yeni oluştur</button>
     <table class="table table-sm">
         <thead>
             <th scope="col">#</th>
@@ -19,6 +18,7 @@
             </tr>
         </tbody>
     </table>
+    <button @click="create()" class="btn btn-dark btn-sm" >Yeni oluştur</button>
   </div>
 </template>
 
